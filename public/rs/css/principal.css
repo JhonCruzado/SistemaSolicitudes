@@ -1,0 +1,90 @@
+:root {
+    --color-one: #f5f5f5;
+    --color-three: #26a69a;
+    --accent-color: #4b4b4b;
+    --border-color: #d8d8d8;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--color-one);
+    color: #333;
+}
+
+.form-neon {
+    border: 1px solid var(--border-color);
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 3px;
+}
+
+/*----------  Dashboard Styles  ----------*/
+.tile-container {
+    text-align: center;
+    padding: 20px 25px;
+}
+.tile {
+    height: 150px;
+    width: 150px;
+    margin: 15px;
+    display: inline-block;
+    text-decoration: none;
+    color: var(--accent-color);
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    user-select: none;
+    transition: all 0.2s ease-in-out;
+    background-color: #fff;
+}
+.tile:hover {
+    text-decoration: none;
+    border-color: var(--color-three);
+}
+.tile:focus,
+.tile:active {
+    outline: none;
+}
+.tile-tittle {
+    margin: 0;
+    width: 100%;
+    padding: 0;
+    height: 40px;
+    line-height: 40px;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.2s ease-in-out;
+    /* font-family: "roboto_medium_regular"; */
+}
+.tile:hover .tile-tittle {
+    color: #fff;
+    border-color: var(--color-three);
+    background-color: var(--color-three);
+}
+.tile-icon {
+    width: 100%;
+    height: 150px;
+    box-sizing: border-box;
+    padding-top: 22px;
+}
+.tile-icon > i {
+    font-size: 60px;
+}
+.tile-icon > p {
+    /* font-family: "roboto_medium_regular"; */
+    height: 35px;
+    line-height: 35px;
+}
+.tile:hover .tile-icon > i,
+.tile:hover .tile-icon > p {
+    color: var(--color-three);
+}
+/*  */
+.not-active {
+    pointer-events: none;
+    cursor: default;
+}
+
+
