@@ -15,38 +15,38 @@
         </div>
     </section>
     <section class="row justify-content-center">
-        <div class="col-xl-3 col-md-4 col-sm-6">
+        <div class="col-xl-4 col-md-4 col-sm-6">
             <div class="card text-center">
                 <div class="card-body">
-                    <div class="avatar bg-light-success p-50 mb-1">
+                    <div class="avatar bg-light-danger p-50 mb-1">
                         <div class="avatar-content">
-                            <i class="far fa-truck fa-2x"></i>
+                            <i class="far fa-layer-group fa-2x"></i>
                         </div>
                     </div>
-                    <h2 class="fw-bolder">{{$sc}}</h2>
-                    <p class="card-text">Solicitudes De Compra</p>
+                    <h2 class="fw-bolder">{{$dp}}</h2>
+                    <p class="card-text">Departamentos</p>
                 </div>
             </div>
         </div>
-         <div class="col-xl-3 col-md-3 col-sm-6">
-            <div class="card text-center">
-                <div class="card-body">
-                    <div class="avatar bg-light-secondary p-50 mb-1">
-                        <div class="avatar-content">
-                            <i class="far fa-box fa-2x"></i>
-                        </div>
-                    </div>
-                    <h2 class="fw-bolder">{{$pr}}</h2>
-                    <p class="card-text">Productos</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-3 col-sm-6">
+         <div class="col-xl-4 col-md-4 col-sm-6">
             <div class="card text-center">
                 <div class="card-body">
                     <div class="avatar bg-light-info p-50 mb-1">
                         <div class="avatar-content">
-                            <i class="far fa-user-tie fa-2x"></i>
+                            <i class="fal fa-table fa-2x"></i>
+                        </div>
+                    </div>
+                    <h2 class="fw-bolder">{{$ar}}</h2>
+                    <p class="card-text">Areas</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-4 col-sm-6">
+            <div class="card text-center">
+                <div class="card-body">
+                    <div class="avatar bg-light-secondary p-50 mb-1">
+                        <div class="avatar-content">
+                            <i class="fal fa-users fa-2x"></i>
                         </div>
                     </div>
                     <h2 class="fw-bolder">{{$co}}</h2>
@@ -54,16 +54,29 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-3 col-sm">
+        <div class="col-xl-4 col-md-4 col-sm-6">
             <div class="card text-center">
                 <div class="card-body">
-                    <div class="avatar bg-light-dark p-50 mb-1">
+                    <div class="avatar bg-light-success p-50 mb-1">
                         <div class="avatar-content">
-                            <i class="far fa-users fa-2x"></i>
+                            <i class="fal fa-shopping-cart fa-2x"></i>
                         </div>
                     </div>
-                    <h2 class="fw-bolder">{{$us}}</h2>
-                    <p class="card-text">Usuarios</p>
+                    <h2 class="fw-bolder">{{$sc}}</h2>
+                    <p class="card-text">Solicitudes de Compra</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-4 col-sm-6">
+            <div class="card text-center">
+                <div class="card-body">
+                    <div class="avatar bg-light-warning p-50 mb-1">
+                        <div class="avatar-content">
+                            <i class="far fa-sack-dollar fa-2x"></i>
+                        </div>
+                    </div>
+                    <h2 class="fw-bolder">{{ number_format($egresos[0]->total, 2) }}</h2>
+                    <p class="card-text">Egresos</p>
                 </div>
             </div>
         </div>

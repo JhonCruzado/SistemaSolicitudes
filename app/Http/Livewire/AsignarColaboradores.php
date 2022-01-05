@@ -8,7 +8,7 @@ use App\Models\AsignarColaborador;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Livewire\WithPagination;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class AsignarColaboradores extends Component
 {
@@ -55,11 +55,11 @@ class AsignarColaboradores extends Component
             })->get();
 
         $colDep = AsignarColaborador::orderBy('id_col_dep','DESC')
-        ->where('colaborador_id', 'like', '%' . $this->cargo . '%')
-        ->where('departamento_id', 'like', '%' . $this->search . '%')
-        ->paginate($this->paginate);
+            ->where('colaborador_id', 'like', '%' . $this->cargo . '%')
+            ->where('departamento_id', 'like', '%' . $this->search . '%')
+            ->paginate($this->paginate);
         $this->nItems = $colDep->count();
-        $cantAsignada = $colDep->count();
+        $cantAsignada = AsignarColaborador::all()->count();
 
         return view('livewire.asignar.index',compact('departamento','colDep','colaboradores','cantAsignada'));
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Compra;
+use App\Models\SolicitudCompra;
 use App\Models\DetalleCompra;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -18,7 +18,7 @@ class ComprasRealizadas extends Component
 
     public function render()
     {
-        $solicitudes = Compra::orderBy('id_solicitud','DESC')->paginate($this->paginate);
+        $solicitudes = SolicitudCompra::orderBy('id_solicitud','DESC')->paginate($this->paginate);
         $detalle = DetalleCompra::where('solicitud_id', '=', $this->idSolicitud)->get();
 
         return view('livewire.solicitudes.realizadas', compact('solicitudes', 'detalle'));

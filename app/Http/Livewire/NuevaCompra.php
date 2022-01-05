@@ -23,7 +23,8 @@ class NuevaCompra extends Component
     public function render()
     {
         $colaboradores = Colaborador::orderBy('id_colaborador','ASC')->where('nombres', 'like', '%' . $this->search . '%')->paginate(7);
-        return view('livewire.solicitudes.nueva', compact('colaboradores'));
+        $grados = DB::table('urgencia')->get();
+        return view('livewire.solicitudes.nueva', compact('colaboradores','grados'));
     }
 
     public function updatedCantidad()
@@ -40,19 +41,15 @@ class NuevaCompra extends Component
         }
     }
 
-    public function addColaborador(Colaborador $model)
+   /*  public function addColaborador(Colaborador $model)
     {
         $this->idColaborador = $model->id_colaborador;
         $this->colaborador = $model->nombres;
         $this->_colaborador = false;
-    }
+    } */
 
     public function addDetalle()
     {
-        if ($this->colaborador == null) {
-            $this->dispatchBrowserEvent('alertWarning', ['title' => "Error", 'text' => "No ha seleccionado el solicitante!!"]);
-            return;
-        }
         if ($this->grado == null) {
             $this->dispatchBrowserEvent('alertWarning', ['title' => "Error", 'text' => "No ha ingresado el grado de urgencia!!"]);
             return;
@@ -120,11 +117,33 @@ class NuevaCompra extends Component
             return;
         }
 
+        // Asignando el grado elegido
+        $gradoElegido = DB::table('urgencia')->select('grado')->where('id_urgencia', 'like', $this->grado)->get();
+        $gradoElegido = $gradoElegido[0]->grado;
+
+        // Evaluando cantidad registrada
+        if ($this->total > 1000) {
+            $datosGerente = Colaborador::where('cargo_id', 'like', 4)->get();
+            $emailGerente = $datosGerente[0]->email;
+            $datosJefeDepartamento = Colaborador::where('id_colaborador', 'like', 21)->get();
+            $emailJefeDepartamento = $datosJefeDepartamento[0]->email;
+            $datosJefeArea = Colaborador::where('id_colaborador', 'like', 27)->get();
+            $emailJefeArea = $datosJefeArea[0]->email;
+        }else if ($this->total > 100 && $this->total <= 1000) {
+            $datosJefeDepartamento = Colaborador::where('id_colaborador', 'like', 21)->get();
+            $emailJefeDepartamento = $datosJefeDepartamento[0]->email;
+            $datosJefeArea = Colaborador::where('id_colaborador', 'like', 27)->get();
+            $emailJefeArea = $datosJefeArea[0]->email;
+        }else{
+            $datosJefeArea = Colaborador::where('id_colaborador', 'like', 27)->get();
+            $emailJefeArea = $datosJefeArea[0]->email;
+        }
+
         DB::beginTransaction();
         try {
             $id = DB::table('solicitud_compra')->insertGetId([
                 'colaborador_id' => $this->idColaborador,
-                'grado_urgencia' => $this->grado,
+                'grado_urgencia' => $gradoElegido,
                 'monto_total' => $this->total,
                 'cantidad_total' => $this->cantotal,
                 'fecha' => date('Y-m-d H:i:s'),

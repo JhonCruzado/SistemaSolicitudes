@@ -1,4 +1,13 @@
 <!-- BEGIN: Header-->
+@php
+    $datos = DB::table('colaborador as c')
+        ->select(DB::raw('CONCAT(car.cargo, " ", dp.departamento) AS departamento'),'c.nombres')
+        ->join('cargo as car', 'car.id_cargo', '=', 'c.cargo_id')
+        ->join('colaborador_dep as cd', 'cd.colaborador_id', '=', 'c.id_colaborador')
+        ->join('departamento as dp', 'dp.id_departamento', '=', 'cd.departamento_id')
+        ->where('c.nombres', '=', Auth::user()->nombre)
+        ->get();
+@endphp
 <nav
     class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl box-shadow">
     <div class="navbar-container d-flex content">
@@ -42,7 +51,7 @@
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="user-nav d-sm-flex d-none">
                         <span class="user-name fw-bolder text-truncate">{{ Auth::user()->nombre }}</span>
-                        <span class="user-status" style="color: #26a69a">{{ Auth::user()->roles->rol }}</span>
+                        <span class="user-status" style="color: #26a69a">{{ $datos[0]->departamento }}</span>
                     </div><span class="avatar">
                         <img class="round" src="{{ asset('images/default.jpg') }}" alt="avatar"
                             height="40" width="40">

@@ -41,17 +41,16 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', Dashboard::class)->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/nueva-solicitud', NuevaCompra::class)->name('nueva-solicitud');
-Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/solicitudes', ComprasRealizadas::class)->name('solicitudes');
+Route::middleware(['auth:sanctum', 'verified'])->get('/nueva-solicitud', NuevaCompra::class)->name('nueva-solicitud');
+Route::middleware(['auth:sanctum', 'verified'])->get('/solicitudes', ComprasRealizadas::class)->name('solicitudes');
 
-Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/departamentos', Departamentos::class)->name('departamentos');
-Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/areas', Areas::class)->name('areas');
-Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/colaboradores', Colaboradores::class)->name('colaboradores');
-Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/asignar', AsignarColaboradores::class)->name('asignar');
-Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/asignar2', AsignarColaboradores2::class)->name('asignar2');
+Route::middleware(['auth:sanctum', 'verified'])->get('/departamentos', Departamentos::class)->name('departamentos');
+Route::middleware(['auth:sanctum', 'verified'])->get('/areas', Areas::class)->name('areas');
+Route::middleware(['auth:sanctum', 'verified'])->get('/colaboradores', Colaboradores::class)->name('colaboradores');
+Route::middleware(['auth:sanctum', 'verified'])->get('/asignar', AsignarColaboradores::class)->name('asignar');
+Route::middleware(['auth:sanctum', 'verified'])->get('/asignar2', AsignarColaboradores2::class)->name('asignar2');
 
-
-
+/*
 Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/adm-productos', AdmProductos::class)->name('adm-productos');
 Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/proveedores', Proveedores::class)->name('proveedores');
 Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/productos', Productos::class)->name('productos');
@@ -66,6 +65,7 @@ Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/usuarios', Usu
 Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/reporte-ventas', [ReportesGraficos::class, 'reporteVentas'])->name('rep-ventas');
 Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/reporte-compras', [ReportesGraficos::class, 'reporteCompras'])->name('rep-compras');
 Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/caja', Cajas::class )->name('caja');
+*/
 
 Route::get('no-autorizado', function(){
     abort('403');

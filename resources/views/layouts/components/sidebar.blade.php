@@ -1,6 +1,6 @@
 <!-- BEGIN: Main Menu-->
 @php
-    $user = Auth::user()->roles->rol;
+    /* $user = Auth::user()->roles->rol; */
 @endphp
 <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
     <div class="navbar-header">
@@ -33,7 +33,7 @@
                 <span data-i18n="Apps &amp; Pages">General</span>
                 <i data-feather="more-horizontal"></i>
             </li>
-            @if (isA($user))
+            {{-- @if (isA($user)) --}}
                 <li class="nav-item">
                     <a class="d-flex align-items-center" href="#">
                         <i data-feather="grid"></i>
@@ -54,17 +54,17 @@
                         </li>
                     </ul>
                 </li>
-            @endif
-            @if(isA($user) || isA($user))
+            {{-- @endif
+            @if(isA($user) || isA($user)) --}}
                 <li class="nav-item {{ setActive('colaboradores') }}">
                     <a class="d-flex align-items-center" href="{{ route('colaboradores') }}">
                         <i data-feather='users'></i>
                         <span class="menu-title text-truncate">Colaboradores</span>
                     </a>
                 </li>
-            @endif
+            {{-- @endif --}}
             <hr>
-            @if (isA($user))
+            {{-- @if (isA($user)) --}}
                 <li class="nav-item">
                     <a class="d-flex align-items-center" href="#">
                         <i data-feather='share-2'></i>
@@ -91,7 +91,7 @@
                         </li> --}}
                     </ul>
                 </li>
-            @endif
+           {{--  @endif --}}
           {{--   @if (isA($user) || isA($user) || isA($user))
                 <li class="nav-item {{ setActive('asignar') }}">
                     <a class="d-flex align-items-center" href="{{ route('asignar') }}">
@@ -101,21 +101,21 @@
                 </li>
             @endif --}}
             <hr>
-            @if (isA($user) || isA($user))
+            {{-- @if (isA($user) || isA($user)) --}}
                 <li class=" nav-item">
                     <a class="d-flex align-items-center" href="#">
                         <i data-feather='shopping-bag'></i>
                         <span class="menu-title text-truncate">Solicitudes de Compras</span>
                     </a>
                     <ul class="menu-content">
-                        @if (isA($user))
+                       {{--  @if (isA($user)) --}}
                             <li class="{{ setActive('nueva-solicitud') }}">
                                 <a class="d-flex align-items-center" href="{{ route('nueva-solicitud') }}">
                                     <i data-feather="circle"></i>
                                     <span class="menu-item text-truncate">Registrar Solicitud</span>
                                 </a>
                             </li>
-                        @endif
+                       {{--  @endif --}}
                         <li class="{{ setActive('solicitudes') }}">
                             <a class="d-flex align-items-center" href="{{ route('solicitudes') }}">
                                 <i data-feather="circle"></i>
@@ -124,7 +124,7 @@
                         </li>
                     </ul>
                 </li>
-            @endif
+            {{-- @endif --}}
             {{--
             @if (isA($user))
                 <li class="nav-item {{ setActive('proveedores') }}">

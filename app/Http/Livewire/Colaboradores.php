@@ -106,6 +106,7 @@ class Colaboradores extends Component
                 $this->dispatchBrowserEvent('alertWarning', ['title' => "Error", 'text' => "El cargo seleccionado ya no puede ser asignado!"]);
                 return 0;
             } else{
+                
                 Colaborador::create($validatedData);
                 $this->dispatchBrowserEvent('alertSuccess', ['title' => "Colaborador registrado", 'text' => "Se ha registrado correctamente!"]);
                 $this->limpiarCampos();

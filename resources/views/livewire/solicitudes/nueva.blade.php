@@ -35,8 +35,15 @@
                                 <div class="col-lg-5 mb-1">
                                     <div class="form-group input">
                                         <label class="form-label label">Grado de Urgencia</label>
-                                        <input wire:model="grado" class="form-control" type="text" >
+                                        {{-- <input wire:model="grado" class="form-control" type="text" > --}}
+                                        <select wire:model="grado" class="form-select">
+                                        <option value="">--- Opciones ---</option>
+                                        @foreach ($grados as $g)
+                                            <option value="{{ $g->id_urgencia }}">{{ $g->grado }}</option>
+                                        @endforeach
+                                    </select>
                                     </div>
+
                                 </div>
                             </div>
                             <div class="row">

@@ -32,33 +32,6 @@
             </div>
         </div>
     </div>
-    {{-- <div class="row">
-        <div class="col-sm-12">
-            <div class="card box-shadow">
-                <div class="card-body">
-                    <h6 class="mb-1">Filtros</h6>
-                    <div class="row">
-                        <div class="col-lg">
-                            <select wire:model="cargo" class="form-select">
-                                <option value="">--- Colaboradores ---</option>
-                                @foreach ($colaboradores2 as $c)
-                                    <option value="{{ $c->id_colaborador }}">{{$c->nombres}} - {{$c->cargos->cargo}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-lg">
-                            <select wire:model="cargo" class="form-select">
-                                <option value="">--- Departamentos ---</option>
-                                @foreach ($departamento as $d)
-                                    <option value="{{ $d->id_departamento }}">{{ $d->departamento }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
     <!-- Accordion start -->
     <div class="row">
         <div class="col-sm-12 mb-3">

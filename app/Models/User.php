@@ -29,7 +29,6 @@ class User extends Authenticatable
         'nombre',
         'email',
         'password',
-        'rol_id',
         'estado'
     ];
 
@@ -63,7 +62,7 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function roles(){
-        return $this->hasOne(Rol::class, 'id_rol', 'rol_id');   
-    }
+   /*  public function roles(){
+        return $this->hasOne(Rol::class, 'id_rol', 'rol_id');
+    } */
 }
