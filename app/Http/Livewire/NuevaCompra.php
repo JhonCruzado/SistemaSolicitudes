@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Producto;
 use App\Models\Colaborador;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -14,7 +15,7 @@ class NuevaCompra extends Component
     public $idColaborador, $colaborador, $search; //colaborador
     public $codigo, $producto,  $precio; //producto
     public $cantidadtotal, $cantidad, $_subtotal = 0, $__subtotal = 0;
-
+    public $key = 1;
     public $_colaborador = false;
     public $table = array();
     public $add = true, $compra = false;
@@ -41,7 +42,7 @@ class NuevaCompra extends Component
         }
     }
 
-   /*  public function addColaborador(Colaborador $model)
+   /*public function addColaborador(Colaborador $model)
     {
         $this->idColaborador = $model->id_colaborador;
         $this->colaborador = $model->nombres;
@@ -54,10 +55,10 @@ class NuevaCompra extends Component
             $this->dispatchBrowserEvent('alertWarning', ['title' => "Error", 'text' => "No ha ingresado el grado de urgencia!!"]);
             return;
         }
-        if ($this->codigo == null) {
+        /* if ($this->codigo == null) {
             $this->dispatchBrowserEvent('alertWarning', ['title' => "Error", 'text' => "No ha ingresado el codigo del producto!!"]);
             return;
-        }
+        } */
         if ($this->producto == null) {
             $this->dispatchBrowserEvent('alertWarning', ['title' => "Error", 'text' => "No ha ingresado el producto!!"]);
             return;
@@ -73,7 +74,7 @@ class NuevaCompra extends Component
 
         $ok = true;
         foreach ($this->table as $i => $value) {
-            if ($value['codigo'] == $this->codigo) {
+            if ($value['producto'] == $this->producto) {
                 $ok = false;
                 $this->dispatchBrowserEvent('alertWarning', ['title' => "Advertencia", 'text' => "El producto ya está en el detalle!"]);
             }
@@ -81,7 +82,7 @@ class NuevaCompra extends Component
 
         if ($ok) {
             $this->table[] = [
-                'codigo' => $this->codigo,
+                'codigo' => $this->key,
                 'producto' => $this->producto,
                 'precio' => $this->precio,
                 'cantidad' => $this->cantidad,
@@ -93,6 +94,7 @@ class NuevaCompra extends Component
             $this->cantotal = $this->cantidadtotal;
             $this->limpiarInfoProducto();
             $this->dispatchBrowserEvent('alertSuccess', ['title' => "Detalle compra", 'text' => "El producto se agregó al detalle!"]);
+            $this->key =+1;
         }
     }
 
@@ -121,7 +123,7 @@ class NuevaCompra extends Component
         $gradoElegido = DB::table('urgencia')->select('grado')->where('id_urgencia', 'like', $this->grado)->get();
         $gradoElegido = $gradoElegido[0]->grado;
 
-        // Evaluando cantidad registrada
+        // Obteniendo emails a enviar correos
         if ($this->total > 1000) {
             $datosGerente = Colaborador::where('cargo_id', 'like', 4)->get();
             $emailGerente = $datosGerente[0]->email;
@@ -135,14 +137,14 @@ class NuevaCompra extends Component
             $datosJefeArea = Colaborador::where('id_colaborador', 'like', 27)->get();
             $emailJefeArea = $datosJefeArea[0]->email;
         }else{
-            $datosJefeArea = Colaborador::where('id_colaborador', 'like', 27)->get();
+            $datosJefeArea = Colaborador::where('id_colaborador', 'like', Auth::user()->id)->get();
             $emailJefeArea = $datosJefeArea[0]->email;
         }
 
         DB::beginTransaction();
         try {
             $id = DB::table('solicitud_compra')->insertGetId([
-                'colaborador_id' => $this->idColaborador,
+                'colaborador_id' => Auth::user()->id,
                 'grado_urgencia' => $gradoElegido,
                 'monto_total' => $this->total,
                 'cantidad_total' => $this->cantotal,
@@ -159,10 +161,10 @@ class NuevaCompra extends Component
                 ]);
             }
 
-            $datos = Colaborador::where('id_colaborador', 'like', $this->idColaborador)->get();
+            /* $datos = Colaborador::where('id_colaborador', 'like', $this->idColaborador)->get();
             foreach ($datos as $i) {
                 $email = $i->email;
-            }
+            } */
 
             // Enviar correo a los jefes correspondientes para Aprobacion
             $mail = new PHPMailer();
@@ -175,12 +177,26 @@ class NuevaCompra extends Component
             $mail->Host = "smtp.gmail.com"; // servidor smtp
             $mail->Port = 587; //puerto
 
-            $mail->Username = 'wcsp.service@gmail.com'; //nombre usuario
-            $mail->Password = 'atrtfaxrdmrozjzk'; //contraseña
+            $mail->Username = 'jpcdc.service@gmail.com'; //nombre usuario
+            $mail->Password = 'bmxatiziixyawltl'; //contraseña
 
-            $mail->setFrom('wcsp.service@gmail.com', 'Comercial El Valle');
-            $mail->addAddress($email);     //Add a recipient
-            /* $DataSol = '<p>
+            $mail->setFrom('jpcdc.service@gmail.com', 'Comercial El Valle');
+
+            // añadiendo remitentes de correos
+            // Obteniendo emails a enviar correos
+            if ($this->total > 1000) {
+                $mail->addAddress($emailGerente);     //Add a recipient
+                $mail->addAddress($emailJefeDepartamento);     //Add a recipient
+                $mail->addAddress($emailJefeArea);     //Add a recipient
+            }else if ($this->total > 100 && $this->total <= 1000) {
+                $mail->addAddress($emailJefeDepartamento);     //Add a recipient
+                $mail->addAddress($emailJefeArea);     //Add a recipient
+            }else{
+                $mail->addAddress($emailJefeArea);     //Add a recipient
+            }
+
+            $DataSol = '<p>
+                
                 <b>Nro. Operación:</b> <span>'.$NroOperacion.'</span> <br>
                 <b>Solicitante:</b> <span>'.$Names.'</span> <br>
                 <b>DNI:</b> <span>'.$Dni.'</span> <br>
@@ -189,11 +205,11 @@ class NuevaCompra extends Component
                 <b>Correo:</b> <span>'.$correo.'</span> <br>
                 <b>Teléfono:</b> <span>'.$Names.'</span> <br>
                 <b>ESTADO DE SOLICITUD:</b> <span style="Color:blue;">EN PROCESO</span> <br>
-            </p>'; */
-            $bod = ' <br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus suscipit quae enim dignissimos repellat quia impedit itaque vero, accusamus culpa numquam molestiae deserunt nam quidem commodi maiores dolor quibusdam rem.';
+            </p>';
+            /* $bod = ' <br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus suscipit quae enim dignissimos repellat quia impedit itaque vero, accusamus culpa numquam molestiae deserunt nam quidem commodi maiores dolor quibusdam rem.'; */
             $mail->isHTML(true);
             $mail->Subject = 'Solicitud de Aprobacion';
-            $mail->Body    = $bod;
+            $mail->Body    = $DataSol;
             $mail->send();
 
 

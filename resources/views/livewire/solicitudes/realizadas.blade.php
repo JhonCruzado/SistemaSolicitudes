@@ -43,17 +43,36 @@
                         @foreach ($solicitudes as $s)
                             <tr>
                                 <td width="15%">{{ date('d/m/Y h:i a', strtotime($s->fecha)) }}</td>
-                                <td width="28%">{{ $s->colaboradores->nombres }} - {{ $s->colaboradores->roles->rol }}</td>
+                                <td width="28%">{{ $s->colaboradores->nombres }} <br> {{ $datos[0]->departamento }}</td>
                                 <td width="15%">{{ $s->grado_urgencia }}</td>
                                 <td width="10%">S/.{{ Nformat($s->monto_total) }}</td>
                                 <td width="10%">{{ $s->cantidad_total }}</td>
-                                <td width="10%">{{ $s->estado }}</td>
+                                <td width="10%">
+                                    @if($s->estado == "En Proceso")
+                                        <span class="badge rounded-pill badge-light-warning">
+                                            {{ $s->estado}}
+                                        </span>
+                                    @elseif($s->estado == "Aceptada")
+                                        <span class="badge rounded-pill badge-light-success">
+                                            {{ $s->estado}}
+                                        </span>
+                                    @else
+                                        <span class="badge rounded-pill badge-light-danger">
+                                            {{ $s->estado}}
+                                        </span>
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                     <button type="button"
                                         class="btn btn-icon btn-icon rounded-circle btn-flat-success title-detalle"
                                         wire:click="verDetalle({{ $s->id_solicitud }})" wire:loading.attr="disabled">
                                         <i class="fas fa-clipboard-list"></i>
                                     </button>
+                                    <a target="_blank"
+                                        class="btn btn-icon rounded-circle btn-flat-danger title-pdf"
+                                        href="/proforma-compra/{{ $s->id_solicitud }}">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

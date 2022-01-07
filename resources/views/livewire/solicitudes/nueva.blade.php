@@ -47,18 +47,18 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-2 mb-1">
+                                {{-- <div class="col-lg-2 mb-1">
                                     <div class="form-group input">
                                         <label class="form-label label">Codigo</label>
                                         <div class="input-group">
                                             <input wire:model="codigo" type="number" class="form-control">
-                                            {{-- <button wire:click="buscarProducto" class="btn btn-info" id="button-addon2"
+                                            <button wire:click="buscarProducto" class="btn btn-info" id="button-addon2"
                                                 type="button">
                                                 <i class="far fa-search-plus"></i>
-                                            </button> --}}
+                                            </button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-lg-5 mb-1">
                                     <div class="form-group input">
                                         <label class="form-label label">Producto</label>
