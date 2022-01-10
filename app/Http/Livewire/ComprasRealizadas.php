@@ -21,14 +21,18 @@ class ComprasRealizadas extends Component
 
     public function render()
     {
-        $solicitudes = SolicitudCompra::orderBy('id_solicitud','DESC')->paginate($this->paginate);
+        $solicitudes = DB::table('solicitud_compra as sc')
+          ->join('colaborador as c', 'c.id_colaborador', '=', 'sc.colaborador_id')
+          ->orderBy('id_solicitud','DESC')
+          ->where('c.nombres', '=', Auth::user()->nombre)
+          ->paginate($this->paginate);
         $detalle = DetalleCompra::where('solicitud_id', '=', $this->idSolicitud)->get();
 
         $datos = DB::table('colaborador as c')
-        ->select(DB::raw('CONCAT(car.cargo, " ", dp.departamento) AS departamento'),'c.nombres')
+        ->select(DB::raw('CONCAT(car.cargo, " ", dp.area) AS cargo'),'c.nombres')
         ->join('cargo as car', 'car.id_cargo', '=', 'c.cargo_id')
-        ->join('colaborador_dep as cd', 'cd.colaborador_id', '=', 'c.id_colaborador')
-        ->join('departamento as dp', 'dp.id_departamento', '=', 'cd.departamento_id')
+        ->join('colaborador_area as cd', 'cd.colaborador_id', '=', 'c.id_colaborador')
+        ->join('area as dp', 'dp.id_area', '=', 'cd.area_id')
         ->where('c.nombres', '=', Auth::user()->nombre)
         ->get();
 
@@ -46,13 +50,13 @@ class ComprasRealizadas extends Component
         $solicitudes = SolicitudCompra::join('detalle_solicitud_compraa as d', 'solicitud_compra.id_solicitud', '=', 'd.solicitud_id')
             ->where('solicitud_compra.id_solicitud', '=', $id)->get();
 
-        $datos = DB::table('colaborador as c')
-            ->select(DB::raw('CONCAT(car.cargo, " ", dp.departamento) AS departamento'),'c.nombres')
-            ->join('cargo as car', 'car.id_cargo', '=', 'c.cargo_id')
-            ->join('colaborador_dep as cd', 'cd.colaborador_id', '=', 'c.id_colaborador')
-            ->join('departamento as dp', 'dp.id_departamento', '=', 'cd.departamento_id')
-            ->where('c.nombres', '=', Auth::user()->nombre)
-            ->get();
+         $datos = DB::table('colaborador as c')
+        ->select(DB::raw('CONCAT(car.cargo, " ", dp.area) AS cargo'),'c.nombres')
+        ->join('cargo as car', 'car.id_cargo', '=', 'c.cargo_id')
+        ->join('colaborador_area as cd', 'cd.colaborador_id', '=', 'c.id_colaborador')
+        ->join('area as dp', 'dp.id_area', '=', 'cd.area_id')
+        ->where('c.nombres', '=', Auth::user()->nombre)
+        ->get();
         /* $empresa = Empresa::first(); */
         //return view('livewire.ventas.pdf', compact('ventas'));
         $pdf = PDF::loadView('livewire.solicitudes.pdf', compact('solicitudes','datos'));

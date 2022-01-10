@@ -1,10 +1,10 @@
 <!-- BEGIN: Header-->
 @php
     $datos = DB::table('colaborador as c')
-        ->select(DB::raw('CONCAT(car.cargo, " ", dp.departamento) AS departamento'),'c.nombres')
+        ->select(DB::raw('CONCAT(car.cargo, " ", dp.area) AS cargo'),'c.nombres')
         ->join('cargo as car', 'car.id_cargo', '=', 'c.cargo_id')
-        ->join('colaborador_dep as cd', 'cd.colaborador_id', '=', 'c.id_colaborador')
-        ->join('departamento as dp', 'dp.id_departamento', '=', 'cd.departamento_id')
+        ->join('colaborador_area as cd', 'cd.colaborador_id', '=', 'c.id_colaborador')
+        ->join('area as dp', 'dp.id_area', '=', 'cd.area_id')
         ->where('c.nombres', '=', Auth::user()->nombre)
         ->get();
 @endphp
@@ -51,7 +51,12 @@
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="user-nav d-sm-flex d-none">
                         <span class="user-name fw-bolder text-truncate">{{ Auth::user()->nombre }}</span>
-                        <span class="user-status" style="color: #26a69a">{{ $datos[0]->departamento }}</span>
+                        @if(Auth::user()->nombre == "JHON PAUL CRUZADO DE LA CRUZ")
+                            <span class="user-status" style="color: #26a69a">Administrador</span>
+                        @else
+                            <span class="user-status" style="color: #26a69a">{{ $datos[0]->cargo }}</span>
+                        @endif
+
                     </div><span class="avatar">
                         <img class="round" src="{{ asset('images/default.jpg') }}" alt="avatar"
                             height="40" width="40">

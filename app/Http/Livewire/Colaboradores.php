@@ -6,6 +6,8 @@ use App\Models\Colaborador;
 use App\Models\Departamento;
 use App\Models\Area;
 use App\Models\Cargo;
+use App\Models\User;
+use PHPMailer\PHPMailer\PHPMailer;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -106,8 +108,46 @@ class Colaboradores extends Component
                 $this->dispatchBrowserEvent('alertWarning', ['title' => "Error", 'text' => "El cargo seleccionado ya no puede ser asignado!"]);
                 return 0;
             } else{
-                
                 Colaborador::create($validatedData);
+                if ($this->cargo_id == 2) {
+                    $registro = Colaborador::where('nombres', '=', $this->nombres)->get();
+                    $id = $registro[0]->id_colaborador;
+                     /* Registrando colaborador en la tabla usuario*/
+                     /* $id = $j; */
+                    $datosUsuario = array("id"=>$id,"nombre"=>$this->nombres, "email"=>$this->email, "password"=> "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi", "estado"=>"Habilitado");
+                    /* dd($datosUsuario['email']); */
+                    User::create($datosUsuario);
+
+                    /* Enviando email con credenciales de acceso*/
+                    $mail = new PHPMailer();
+                    $mail->IsSMTP();
+                    //Configuracion servidor mail
+                    $mail->From = "smtp@gmail.com"; //remitente
+                    $mail->SMTPAuth = true;
+                    $mail->SMTPSecure = 'tls'; //seguridad
+                    $mail->Host = "smtp.gmail.com"; // servidor smtp
+                    $mail->Port = 587; //puerto
+
+                    $mail->Username = 'jpcdc.service@gmail.com'; //nombre usuario
+                    $mail->Password = 'zvqxpjsrrxlolpfm'; //contraseña
+
+                    $mail->setFrom('jpcdc.service@gmail.com', 'Comercial El Valle');
+                    $mail->addAddress($datosUsuario['email']);
+
+                    $DataSol = '<p>Para acceder al sistema utilize las siguientes credenciales:
+                    <br>
+                    Link: http://127.0.0.1:8000/login
+                    <br>
+                    Email: '.$datosUsuario['email'] .'
+                    <br>
+                    Contraseña: password
+                    </p>';
+
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Credenciales de Acceso';
+                    $mail->Body    = $DataSol;
+                    $mail->send();
+                }
                 $this->dispatchBrowserEvent('alertSuccess', ['title' => "Colaborador registrado", 'text' => "Se ha registrado correctamente!"]);
                 $this->limpiarCampos();
             }

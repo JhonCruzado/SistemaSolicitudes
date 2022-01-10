@@ -89,7 +89,7 @@
                 <tr>
                     <td>
                         <div style="margin-bottom: 4px;">
-                            <span style="font-weight: bold;">Fecha de Venta:</span>
+                            <span style="font-weight: bold;">Fecha de registro:</span>
                             <span>{{ date('d/m/Y H:i A',strtotime($solicitudes[0]->fecha)) }}</span>
                         </div>
                         <div style="margin-bottom: 4px;">
@@ -98,7 +98,7 @@
                         </div>
                         <div style="margin-bottom: 4px;">
                             <span style="font-weight: bold;">Cargo:</span>
-                            <span>{{$datos[0]->departamento}}</span>
+                            <span>{{$datos[0]->cargo}}</span>
                         </div>
                         <div style="margin-bottom: 4px;">
                             <span style="font-weight: bold;">DNI:</span>

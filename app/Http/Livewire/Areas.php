@@ -6,6 +6,7 @@ use App\Models\Departamento;
 use App\Models\Area;
 use Livewire\Component;
 use Livewire\WithPagination;
+use DB;
 
 class Areas extends Component
 {
@@ -16,7 +17,7 @@ class Areas extends Component
     public $idArea, $area, $departamento_id; //Model area
     public $estado = 'Habilitado';
     public $departamento, $search;
-    public $paginate =10;
+    public $paginate =5;
 
     public $_create = false;
     public $_edit = false;
@@ -35,10 +36,17 @@ class Areas extends Component
     public function render()
     {
         $departamentos = Departamento::all();
-        $areas = Area::orderBy('id_area','DESC')
+        /* $areas = Area::orderBy('id_area','DESC')
             ->where('departamento_id', 'like', '%' . $this->departamento . '%')
             ->where('area', 'like', '%' . $this->search . '%')
+            ->paginate($this->paginate); */
+        $areas = DB::table('area as a')
+            ->select('a.id_area','a.area','d.departamento','a.estado',)
+            ->join('departamento as d', 'd.id_departamento', '=', 'a.departamento_id')
+            ->where('a.departamento_id', 'like', '%' . $this->departamento . '%')
+            ->where('a.area', 'like', '%' . $this->search . '%')
             ->paginate($this->paginate);
+
         $nItems = $areas->count();
 
         return view('livewire.areas.index', compact('departamentos','areas','nItems'));

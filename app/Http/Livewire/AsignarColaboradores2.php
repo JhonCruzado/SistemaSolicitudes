@@ -58,7 +58,6 @@ class AsignarColaboradores2 extends Component
             ->where('colaborador_id', 'like', '%' . $this->search . '%')
             ->where('area_id', 'like', '%' . $this->search . '%')
             ->paginate($this->paginate);
-
         $this->nItems = $colArea->count();
         $cantAsignada = AsignarColaborador2::all()->count();
 

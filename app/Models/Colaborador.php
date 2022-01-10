@@ -25,8 +25,12 @@ class Colaborador extends Model
         return $this->hasOne(Cargo::class, 'id_cargo', 'cargo_id');
     }
 
-    public function colDepars(){
+    public function asignacion(){
         return $this->belongsTo(AsignarColaborador::class, 'colaborador_id', 'id_colaborador');
+    }
+
+    public function asignacion2(){
+        return $this->belongsTo(AsignarColaborador2::class, 'colaborador_id', 'id_colaborador');
     }
 
     public function solicitudes(){

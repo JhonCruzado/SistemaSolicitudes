@@ -28,7 +28,7 @@ class Departamentos extends Component
 
     public function render()
     {
-        $departamentos = Departamento::orderBy('id_departamento','DESC')
+       $departamentos = Departamento::orderBy('id_departamento','DESC')
             ->where('departamento', 'like', '%' . $this->search . '%')
             ->paginate($this->paginate);
         $nItems = $departamentos->count();

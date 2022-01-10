@@ -50,7 +50,7 @@
                         @foreach ($areas as $a)
                             <tr>
                                 <td>{{ $a->area }}</td>
-                                <td>{{ $a->departamentos->departamento }}</td>
+                                <td>{{ $a->departamento }}</td>
                                 <td class="text-center">
                                     @if ($a->estado == 'Habilitado')
                                         <span class="badge rounded-pill badge-light-success">{{ $a->estado }}</span>

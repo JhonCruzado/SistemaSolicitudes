@@ -43,7 +43,7 @@
                         @foreach ($solicitudes as $s)
                             <tr>
                                 <td width="15%">{{ date('d/m/Y h:i a', strtotime($s->fecha)) }}</td>
-                                <td width="28%">{{ $s->colaboradores->nombres }} <br> {{ $datos[0]->departamento }}</td>
+                                <td width="28%">{{ $s->colaboradores->nombres }} <br> @if(Auth::user()->nombre == "JHON PAUL CRUZADO DE LA CRUZ") Administrador @else {{ $datos[0]->cargo }} @endif</td>
                                 <td width="15%">{{ $s->grado_urgencia }}</td>
                                 <td width="10%">S/.{{ Nformat($s->monto_total) }}</td>
                                 <td width="10%">{{ $s->cantidad_total }}</td>
