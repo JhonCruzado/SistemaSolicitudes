@@ -18,8 +18,8 @@ use App\Http\Livewire\Cajas;
 use App\Http\Livewire\AsignarColaboradores;
 use App\Http\Livewire\AsignarColaboradores2;
 use App\Http\Livewire\ReporteMovimientos;
-use App\Http\Livewire\Usuarios;
-use App\Http\Livewire\VentasRealizadas;
+use App\Http\Livewire\RechazandoSolicitudes;
+use App\Http\Livewire\AprobandoSolicitudes;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +50,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/colaboradores', Colaborad
 Route::middleware(['auth:sanctum', 'verified'])->get('/asignar', AsignarColaboradores::class)->name('asignar');
 Route::middleware(['auth:sanctum', 'verified'])->get('/asignar2', AsignarColaboradores2::class)->name('asignar2');
 Route::middleware(['auth:sanctum', 'verified'])->get('/proforma-compra/{id}', [ComprasRealizadas::class, 'pdf']);
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/aprobacion', AprobandoSolicitudes::class)->name('aprobacion');
+Route::middleware(['auth:sanctum', 'verified'])->get('/rechazo', RechazandoSolicitudes::class)->name('rechazo');
 /*
 Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/adm-productos', AdmProductos::class)->name('adm-productos');
 Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/proveedores', Proveedores::class)->name('proveedores');

@@ -22,7 +22,7 @@ class ComprasRealizadas extends Component
     public function render()
     {
         $solicitudes = DB::table('solicitud_compra as sc')
-            ->select('sc.id_solicitud as id_solicitud','sc.fecha as fecha','c.nombres as nombre','sc.grado_urgencia as grado_urgencia','sc.monto_total as monto_total','sc.cantidad_total as cantidad_total','sc.estado')
+            ->select('sc.id_solicitud as id_solicitud','sc.fecha as fecha','c.nombres as nombre','sc.grado_urgencia as grado_urgencia','sc.monto_total as monto_total','sc.cantidad_total as cantidad_total','sc.Aprobaciones as aprobaciones','sc.TotalAprobaciones as totalApro','sc.TotalRechazos as totalRecha','sc.estado')
             ->join('colaborador as c', 'c.id_colaborador', '=', 'sc.colaborador_id')
             ->orderBy('sc.id_solicitud','DESC')
             ->where('c.nombres', '=', Auth::user()->nombre)

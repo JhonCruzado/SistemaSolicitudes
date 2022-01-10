@@ -164,6 +164,15 @@ class NuevaCompra extends Component
             $emailJefeArea = $datosJefeArea[0]->email;
         }
 
+        // evaluando cantidad de aprobaciones
+        if ($this->total > 1000) {
+            $aprobaciones=3;
+        }else if ($this->total > 100 && $this->total <= 1000) {
+            $aprobaciones=2;
+        }else{
+            $aprobaciones=1;
+        }
+
         DB::beginTransaction();
         try {
             $id = DB::table('solicitud_compra')->insertGetId([
@@ -172,6 +181,7 @@ class NuevaCompra extends Component
                 'monto_total' => $this->total,
                 'cantidad_total' => $this->cantotal,
                 'fecha' => date('Y-m-d H:i:s'),
+                'Aprobaciones' => $aprobaciones,
                 'estado' => 'En Proceso'
             ]);
 

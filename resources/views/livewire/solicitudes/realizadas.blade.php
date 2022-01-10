@@ -43,21 +43,38 @@
                         @foreach ($solicitudes as $s)
                             <tr>
                                 <td width="15%">{{ date('d/m/Y h:i a', strtotime($s->fecha)) }}</td>
-                                <td width="28%">{{ $s->nombre }} <br> @if(Auth::user()->nombre == "JHON PAUL CRUZADO DE LA CRUZ") Administrador @else {{ $datos[0]->cargo }} @endif</td>
-                                <td width="15%">{{ $s->grado_urgencia }}</td>
+                                <td width="25%">{{ $s->nombre }} <br> @if(Auth::user()->nombre == "JHON PAUL CRUZADO DE LA CRUZ") Administrador @else {{ $datos[0]->cargo }} @endif</td>
+                                <td width="15%">
+                                    @if($s->grado_urgencia == "Alto")
+                                        <span class="badge rounded-pill badge-light-danger">
+                                            {{ $s->grado_urgencia}}
+                                        </span>
+                                    @elseif($s->grado_urgencia == "Medio")
+                                        <span class="badge rounded-pill badge-light-warning">
+                                            {{ $s->grado_urgencia}}
+                                        </span>
+                                    @else
+                                        <span class="badge rounded-pill badge-light-success">
+                                            {{ $s->grado_urgencia}}
+                                        </span>
+                                    @endif
+                                </td>
                                 <td width="10%">S/.{{ Nformat($s->monto_total) }}</td>
                                 <td width="10%">{{ $s->cantidad_total }}</td>
                                 <td width="10%">
-                                    @if($s->estado == "En Proceso")
-                                        <span class="badge rounded-pill badge-light-warning">
-                                            {{ $s->estado}}
-                                        </span>
-                                    @elseif($s->estado == "Aceptada")
-                                        <span class="badge rounded-pill badge-light-success">
-                                            {{ $s->estado}}
-                                        </span>
+                                    @if($s->totalApro + $s->totalRecha == $s->aprobaciones)
+                                        @if($s->totalApro == $s->aprobaciones)
+                                            <span class="badge rounded-pill badge-light-success">
+                                                {{ $s->estado}}
+                                            </span>
+                                        @endif
+                                        @if($s->totalRecha == $s->aprobaciones)
+                                            <span class="badge rounded-pill badge-light-danger">
+                                                {{ $s->estado}}
+                                            </span>
+                                        @endif
                                     @else
-                                        <span class="badge rounded-pill badge-light-danger">
+                                        <span class="badge rounded-pill badge-light-warning">
                                             {{ $s->estado}}
                                         </span>
                                     @endif
