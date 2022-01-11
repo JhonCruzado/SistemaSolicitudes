@@ -223,7 +223,7 @@ class NuevaCompra extends Component
             }
 
             $DataSol = '
-
+               
             ';
 
             $mail->isHTML(true);
