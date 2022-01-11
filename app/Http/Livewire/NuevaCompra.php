@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\MensajeDeCorreo;
 use App\Models\Producto;
 use App\Models\Colaborador;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -122,7 +124,7 @@ class NuevaCompra extends Component
 
         // Cargo
         $datos = DB::table('colaborador as c')
-        ->select(DB::raw('CONCAT(car.cargo, " ", dp.area) AS cargo'),'c.nombres','c.id_colaborador as id')
+        ->select(DB::raw('CONCAT(car.cargo, " ", dp.area) AS cargo'),'c.nombres as nombres','c.id_colaborador as id')
         ->join('cargo as car', 'car.id_cargo', '=', 'c.cargo_id')
         ->join('colaborador_area as cd', 'cd.colaborador_id', '=', 'c.id_colaborador')
         ->join('area as dp', 'dp.id_area', '=', 'cd.area_id')
@@ -223,19 +225,16 @@ class NuevaCompra extends Component
             }
 
             $DataSol = '
-               
+
             ';
+
+            /* $mailable = new MensajeDeCorreo($datos, date('Y-m-d H:i:s'));
+            Mail::to($emailJefeArea)->send($mailable); */
 
             $mail->isHTML(true);
             $mail->Subject = 'Solicitud de Aprobacion';
             $mail->Body    = $DataSol;
-            /* dd($mail); */
             $mail->send();
-            /* if(!$mail->send()) {
-                echo 'Mailer error: ' . $mail->ErrorInfo;
-            } else {
-                echo 'Message enviado con éxito.';
-            } */
 
             DB::commit();
 

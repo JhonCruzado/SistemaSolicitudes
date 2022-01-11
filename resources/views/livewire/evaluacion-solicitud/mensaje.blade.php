@@ -34,13 +34,13 @@
                 <td style="padding: .3rem 1rem;"><b>Nro. Orden Compra: </b>{{-- {{$info->orden}} --}}</td>
               </tr>
               <tr>
-                <td style="padding: .3rem 1rem;"><b>Solicitante: </b>{{-- {{$info->solicitante .' '. $info->cargo}} --}}</td>
+                <td style="padding: .3rem 1rem;"><b>Solicitante: </b>{{ $colaborador[0]->nombres}} {{-- {{$info->solicitante .' '. $info->cargo}} --}}</td>
               </tr>
               <tr>
                 <td style="padding: .3rem 1rem;"><b>Nivel de Urgencia: </b>{{-- {{$info->urgencia}} --}}</td>
               </tr>
               <tr>
-                <td style="padding: .3rem 1rem;"><b>Fecha solicitud: </b>{{-- {{$info->fecha}} --}}</td>
+                <td style="padding: .3rem 1rem;"><b>Fecha solicitud: </b>{{$fecha}} {{-- {{$info->fecha}} --}}</td>
               </tr>
               <tr>
                 <td style="padding: .3rem 1rem;"><b>Total (S/): </b>{{-- {{$info->total}} --}}</td>
