@@ -49,7 +49,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/areas', Areas::class)->na
 Route::middleware(['auth:sanctum', 'verified'])->get('/colaboradores', Colaboradores::class)->name('colaboradores');
 Route::middleware(['auth:sanctum', 'verified'])->get('/asignar', AsignarColaboradores::class)->name('asignar');
 Route::middleware(['auth:sanctum', 'verified'])->get('/asignar2', AsignarColaboradores2::class)->name('asignar2');
-Route::middleware(['auth:sanctum', 'verified'])->get('/proforma-compra/{id}', [ComprasRealizadas::class, 'pdf']);
+Route::middleware(['auth:sanctum', 'verified'])->get('/solicitud-compra/{id}', [ComprasRealizadas::class, 'pdf']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/aprobacion', AprobandoSolicitudes::class)->name('aprobacion');
 Route::middleware(['auth:sanctum', 'verified'])->get('/rechazo', RechazandoSolicitudes::class)->name('rechazo');

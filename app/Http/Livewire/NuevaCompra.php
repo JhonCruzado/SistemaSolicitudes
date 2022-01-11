@@ -212,96 +212,19 @@ class NuevaCompra extends Component
 
             // Obteniendo emails a enviar correos
             if ($this->total > 1000) {
-                $mail->addAddress($emailGerente);     //Add a recipient
-                $mail->addAddress($emailJefeDepartamento);     //Add a recipient
-                $mail->addAddress($emailJefeArea);     //Add a recipient
+                $mail->addAddress($emailGerente);
+                $mail->addAddress($emailJefeDepartamento);
+                $mail->addAddress($emailJefeArea);
             }else if ($this->total > 100 && $this->total <= 1000) {
-                $mail->addAddress($emailJefeDepartamento);     //Add a recipient
-                $mail->addAddress($emailJefeArea);     //Add a recipient
+                $mail->addAddress($emailJefeDepartamento);
+                $mail->addAddress($emailJefeArea);
             }else{
-                $mail->addAddress($emailJefeArea);     //Add a recipient
+                $mail->addAddress($emailJefeArea);
             }
 
-            $DataSol = '<p>Buen dia, le saluda el '.$datos[0]->cargo.', el motivo de este correo es para solicitar la aprobación de la compra de productos para nuestra área, los cuales se detallan a continuación.
-            <br><br>
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between mb-1">
-                            <h3 class="m-0">
-                                &nbsp;&nbsp;Proforma de Compra
-                            </h3>
-                        </div>
-                        <hr>
-                        <div class="d-flex justify-content-between mb-1">
-                            <h5 class="m-0">
-                                <div style="margin-bottom: 4px;aling-items:right;" >
-                                    <b style="font-weight: bold;">N° Proforma:</b>
-                                    <span>'.$id.'</span>
-                                </div><br>
-                                <div style="margin-bottom: 4px;aling-items:right;" >
-                                    <b style="font-weight: bold;">Solicitante:</b>
-                                    <span>'.Auth::user()->nombre.'</span>
-                                </div><br>
-                                <div style="margin-bottom: 4px;">
-                                    <b style="font-weight: bold;">Grado de Urgencia:</b>
-                                    <span>'.$gradoElegido.'</span>
-                                </div><br>
-                                <div style="margin-bottom: 4px;">
-                                    <b style="font-weight: bold;">Cargo:</b>
-                                    <span>'.$datos[0]->cargo.'</span>
-                                </div><br>
-                                <div style="margin-bottom: 4px;">
-                                    <b style="font-weight: bold;">Fecha de Solicitud:</b>
-                                    <span>'.date('Y-m-d H:i:s').'</span>
-                                </div><br>
-                                <div style="margin-bottom: 4px;">
-                                    <b style="font-weight: bold;">Total:</b>
-                                    <span>'.$this->total.'</span>
-                                </div>
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12 mt-0">
-                <div class="table-responsive bg-white table-shadow">
-                    <table class="table table-hover">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Cantidad</th>
-                                <th>Precio (S/.)</th>
-                                <th>Producto</th>
-                                <th>Subtotal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($this->table as $t)
-                                <tr>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <br><br>
-            Para poder aceptar o rechazar está solicitud presione uno de los siguientes botones:
-            <br><br>
-            <div class="text-center">
-                <button onclick="window.location.href="http://127.0.0.1:8000/solicitudes" " type="button"   class="btn btn-info mt-1">
-                    <span>Aceptar solicitud</span>
-                </button>
-            </div>
-            <div class="text-center">
-                <button onclick="window.location.href="http://127.0.0.1:8000/solicitudes" " type="button"   class="btn btn-danger mt-1">
-                    <span>Rechazar solicitud</span>
-                </button>
-            </div>
-            </p>';
+            $DataSol = '
+
+            ';
 
             $mail->isHTML(true);
             $mail->Subject = 'Solicitud de Aprobacion';

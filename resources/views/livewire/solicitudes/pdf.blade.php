@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Proforma de Compra</title>
+    <title>Solicitud de Compra</title>
     <link rel="apple-touch-icon" href="{{ asset('images/logo1.png') }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo1.png') }}">
     <style>
@@ -75,7 +75,7 @@
                         <span>Tel: 22558800</span>
                     </td>
                     <td class="header-left">
-                        <span style="font-weight: bold; margin-bottom: 3px;">PROFORMA DE COMPRA</span>
+                        <span style="font-weight: bold; margin-bottom: 3px;">SOLICITUD DE COMPRA</span>
                         <span style="font-weight: bold; margin-bottom: 3px; color:#ca3939">{{$solicitudes[0]->id_solicitud}}</span>
                         <span>RUC: 1087654321</span>
                     </td>

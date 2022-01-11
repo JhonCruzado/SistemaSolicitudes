@@ -87,7 +87,7 @@
                                     </button>
                                     <a target="_blank"
                                         class="btn btn-icon rounded-circle btn-flat-danger title-pdf"
-                                        href="/proforma-compra/{{ $s->id_solicitud }}">
+                                        href="/solicitud-compra/{{ $s->id_solicitud }}">
                                         <i class="fas fa-file-pdf"></i>
                                     </a>
                                 </td>
@@ -108,7 +108,7 @@
                         </div>
                     </div>
                     <div class="col-lg">
-                        {{-- {{$sompras->links()}} --}}
+                        {{-- {{$solicitudes->links()}} --}}
                     </div>
                 </div>
             </div>

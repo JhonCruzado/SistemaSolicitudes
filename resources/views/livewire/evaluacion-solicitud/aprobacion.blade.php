@@ -28,9 +28,9 @@
                                         </div>
                                     </div><br>
                                     <div class="form-group d-flex justify-content-center mb-1 input">
-                                            <button onclick="window.location.href='http://127.0.0.1:8000/solicitudes' "class="btn btn-info" id="button-addon2"
-                                                type="button">
-                                                {{-- <i class="far fa-user-plus"></i> --}}Aprobar
+                                            <button onclick="window.location.href='http://127.0.0.1:8000/solicitudes' "class="btn {{-- btn-info --}}" id="button-addon2"
+                                                type="button" style="background: #0d6efd;color: #fff">
+                                                {{-- <i class="far fa-user-plus"></i> --}}Aprobar solicitud
                                             </button>
                                     </div>
                                 </div>

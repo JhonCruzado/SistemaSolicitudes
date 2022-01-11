@@ -28,9 +28,9 @@
                                         </div>
                                     </div><br>
                                     <div class="form-group d-flex justify-content-center mb-1 input">
-                                            <button onclick="window.location.href='http://127.0.0.1:8000/solicitudes' "class="btn btn-danger" id="button-addon2"
-                                                type="button">
-                                                {{-- <i class="far fa-user-plus"></i> --}}Rechazar
+                                            <button onclick="window.location.href='http://127.0.0.1:8000/solicitudes' "class="btn {{-- btn-danger --}}" id="button-addon2"
+                                                type="button" style="background: #ff0040;color: #fff">
+                                                {{-- <i class="far fa-user-plus"></i> --}}Rechazar solicitud
                                             </button>
                                     </div>
                                 </div>
