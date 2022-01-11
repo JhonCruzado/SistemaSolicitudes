@@ -4,18 +4,14 @@
             <div class="card">
                 <div class="card-body">
                     <div class="text-center">
-                        <img src="{{asset('images/logo2.png')}}" alt="Olano S.A.C" style="height:10%; width:20%" class="portada">
+                        <img src="{{asset('images/logo5.png')}}" alt="Comercial El Valle " style="height:25%; width:35%" class="portada">
                     </div>
-                    <br>
-                    <p class="jumbotron" style="font-size:20px;text-align:center">
-                        <b></b>
-                    </p>
                 </div>
             </div>
         </div>
     </section>
     <section class="row justify-content-center">
-        <div class="col-xl-4 col-md-4 col-sm-6">
+        <div class="col-xl col-md-4 col-sm-6">
             <div class="card text-center">
                 <div class="card-body">
                     <div class="avatar bg-light-danger p-50 mb-1">
@@ -28,7 +24,7 @@
                 </div>
             </div>
         </div>
-         <div class="col-xl-4 col-md-4 col-sm-6">
+         <div class="col-xl col-md-4 col-sm-6">
             <div class="card text-center">
                 <div class="card-body">
                     <div class="avatar bg-light-info p-50 mb-1">
@@ -41,7 +37,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-md-4 col-sm-6">
+        <div class="col-xl col-md-4 col-sm-6">
             <div class="card text-center">
                 <div class="card-body">
                     <div class="avatar bg-light-secondary p-50 mb-1">
@@ -54,7 +50,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-md-4 col-sm-6">
+        <div class="col-xl col-md-4 col-sm-6">
             <div class="card text-center">
                 <div class="card-body">
                     <div class="avatar bg-light-success p-50 mb-1">
@@ -67,7 +63,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-md-4 col-sm-6">
+        <div class="col-xl col-md-4 col-sm-6">
             <div class="card text-center">
                 <div class="card-body">
                     <div class="avatar bg-light-warning p-50 mb-1">

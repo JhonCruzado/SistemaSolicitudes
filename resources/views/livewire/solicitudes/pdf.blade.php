@@ -2,10 +2,13 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+    <meta name="author" content="team coders">
     <title>Solicitud de Compra</title>
-    <link rel="apple-touch-icon" href="{{ asset('images/logo1.png') }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo1.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('rs/images/ico/apple-icon-120.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo5.png') }}">
     <style>
         html {
             font-family: sans-serif;
@@ -75,7 +78,7 @@
                         <span>Tel: 22558800</span>
                     </td>
                     <td class="header-left">
-                        <span style="font-weight: bold; margin-bottom: 3px;">SOLICITUD DE COMPRA</span>
+                        <span style="font-weight: bold; margin-bottom: 3px;">ORDEN DE COMPRA</span>
                         <span style="font-weight: bold; margin-bottom: 3px; color:#ca3939">{{$solicitudes[0]->id_solicitud}}</span>
                         <span>RUC: 1087654321</span>
                     </td>
@@ -123,7 +126,7 @@
                         Producto</th>
                     <th style="text-align: center;">Precio</th>
                     {{-- <th style="text-align: center;">Descuento(%)</th> --}}
-                    <th style="text-align: center;">Importe</th>
+                    <th style="text-align: center;">Sub Total</th>
                 </tr>
             </thead>
             <tbody>

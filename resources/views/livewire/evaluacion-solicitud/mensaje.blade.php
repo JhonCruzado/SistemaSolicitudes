@@ -27,54 +27,56 @@
               </tr>
               <tr>
                 <td style="text-align: justify;padding: 0 1rem 1rem 1rem;">
-                  Estimado {{-- {{ $persona_recive }} --}}, requerimos su respuesta frente a está solicitud. A continuación se detalla la orden de compra:
+                  Estimado, requerimos su respuesta frente a está solicitud. A continuación se detalla la orden de compra:
                 </td>
               </tr>
               <tr>
-                <td style="padding: .3rem 1rem;"><b>Nro. Orden Compra: </b>{{-- {{$info->orden}} --}}</td>
+                <td style="padding: .3rem 1rem;"><b>Nro. Orden Compra: </b>{{$datosVenta['nroOrden']}}</td>
               </tr>
               <tr>
-                <td style="padding: .3rem 1rem;"><b>Solicitante: </b>{{ $colaborador[0]->nombres}} {{-- {{$info->solicitante .' '. $info->cargo}} --}}</td>
+                <td style="padding: .3rem 1rem;"><b>Solicitante: </b> {{$datosSolicitante[0]->nombres .' - '. $datosSolicitante[0]->cargo}}</td>
               </tr>
               <tr>
-                <td style="padding: .3rem 1rem;"><b>Nivel de Urgencia: </b>{{-- {{$info->urgencia}} --}}</td>
+                <td style="padding: .3rem 1rem;"><b>Nivel de Urgencia: </b>{{$datosVenta['urgencia']}}</td>
               </tr>
               <tr>
-                <td style="padding: .3rem 1rem;"><b>Fecha solicitud: </b>{{$fecha}} {{-- {{$info->fecha}} --}}</td>
+                <td style="padding: .3rem 1rem;"><b>Fecha solicitud: </b>{{ date('d/m/Y H:i A',strtotime($datosVenta['fecha'])) }}</td>
               </tr>
               <tr>
-                <td style="padding: .3rem 1rem;"><b>Total (S/): </b>{{-- {{$info->total}} --}}</td>
+                <td style="padding: .3rem 1rem;"><b>Total (S/): </b>{{$datosVenta['total']}}</td>
               </tr>
               <tr>
                 <table style="width: 100%; padding: .5rem; font-size: 14px;">
                   <thead style="background: #0d6efd; color: #fff; text-align: left;">
-                    <th style="padding: .28rem .25rem; font-weight: 500;">Cantidad</th>
-                    <th style="padding: .28rem .25rem; font-weight: 500;">Precio (S/)</th>
                     <th style="padding: .28rem .25rem; font-weight: 500;">Producto</th>
+                    <th style="padding: .28rem .25rem; font-weight: 500;">Precio (S/)</th>
+                    <th style="padding: .28rem .25rem; font-weight: 500;">Cantidad</th>
                     <th style="padding: .28rem .25rem; font-weight: 500;">Subtotal (S/)</th>
                   </thead>
                   <tbody style="background: #fff;">
-                    <tr>
-                      <td style="padding: 0 .25rem;">5</td>
-                      <td style="padding: 0 .25rem;">6.00</td>
-                      <td style="padding: 0 .25rem;">Producto #01</td>
-                      <td style="padding: 0 .25rem;">30</td>
-                    </tr>
+                    @foreach ($datosVenta['detalle'] as $dv)
+                        <tr>
+                        <td style="padding: 0 .25rem;">{{$dv['producto']}}</td>
+                        <td style="padding: 0 .25rem;">{{$dv['precio']}}</td>
+                        <td style="padding: 0 .25rem;">{{$dv['cantidad']}}</td>
+                        <td style="padding: 0 .25rem;">{{$dv['subtotal']}}</td>
+                        </tr>
+                    @endforeach
                   </tbody>
                 </table>
-              </tr>
+              </tr><br>
               <tr>
-                <td style="padding: 0 1rem; text-align: justify; font-size: 14px;">Para poder aceptar o rechazar está solicitud presione uno de los siguientes
+                <td style="padding: 0 1rem; text-align: center; font-size: 14px;">Para poder aceptar o rechazar está solicitud presione uno de los siguientes
                   botones:</td>
-              </tr>
+              </tr><br>
               <tr>
-                <td style="display: flex; justify-content: center; gap: 10px; padding: 1rem 0; border: none; font-size: 14px;">
-                  <button onclick="window.location.href='http://127.0.0.1:8000/aprobacion' "
-                    style="text-decoration: none; background: #0d6efd; padding: .7rem 1.2rem; color: #fff; border-radius: 20px">Aprobar
-                    solicitud</button>
-                  <button onclick="window.location.href='http://127.0.0.1:8000/rechazo' "
+                <td style="text-align: center; padding: 1rem 0; border: none; font-size: 14px;">
+                    <a href="http://127.0.0.1:8000/aprobacion" target="_blank"
+                    style="text-decoration: none; background: #0d6efd; padding: .7rem 1.2rem; color: #fff; border-radius: 20px;margin-right:10px">Aprobar
+                    solicitud</a>
+                  <a href="http://127.0.0.1:8000/rechaz" target="_blank"
                     style="text-decoration: none; background: #ff0040; padding: .7rem 1.2rem; color: #fff; border-radius: 20px">Rechazar
-                    solicitud</button>
+                    solicitud</a>
                 </td>
               </tr>
             </tbody>

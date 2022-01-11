@@ -123,7 +123,7 @@ class NuevaCompra extends Component
         }
 
         // Cargo
-        $datos = DB::table('colaborador as c')
+        $datosSolicitante = DB::table('colaborador as c')
         ->select(DB::raw('CONCAT(car.cargo, " ", dp.area) AS cargo'),'c.nombres as nombres','c.id_colaborador as id')
         ->join('cargo as car', 'car.id_cargo', '=', 'c.cargo_id')
         ->join('colaborador_area as cd', 'cd.colaborador_id', '=', 'c.id_colaborador')
@@ -135,7 +135,7 @@ class NuevaCompra extends Component
         $gradoElegido = DB::table('urgencia')->select('grado')->where('id_urgencia', 'like', $this->grado)->get();
         $gradoElegido = $gradoElegido[0]->grado;
 
-        // Obteniendo emails a enviar correos
+        // Obteniendo emails de jefes correspondientes a enviar correos
         if ($this->total > 1000) {
             $datosGerente = Colaborador::where('cargo_id', 'like', 4)->get();
             $emailGerente = $datosGerente[0]->email;
@@ -144,7 +144,7 @@ class NuevaCompra extends Component
                 ->join('area as ar', 'ar.id_area', '=', 'ca.area_id')
                 ->join('colaborador_dep as cd', 'cd.departamento_id', '=', 'ar.departamento_id')
                 ->join('colaborador as c', 'c.id_colaborador', '=', 'cd.colaborador_id')
-                ->where('ca.colaborador_id', 'like', $datos[0]->id)
+                ->where('ca.colaborador_id', 'like', $datosSolicitante[0]->id)
                 ->get();
             $emailJefeDepartamento = $datosJefeDepartamento[0]->email;
 
@@ -155,7 +155,7 @@ class NuevaCompra extends Component
                 ->join('area as ar', 'ar.id_area', '=', 'ca.area_id')
                 ->join('colaborador_dep as cd', 'cd.departamento_id', '=', 'ar.departamento_id')
                 ->join('colaborador as c', 'c.id_colaborador', '=', 'cd.colaborador_id')
-                ->where('ca.colaborador_id', 'like', $datos[0]->id)
+                ->where('ca.colaborador_id', 'like', $datosSolicitante[0]->id)
                 ->get();
             $emailJefeDepartamento = $datosJefeDepartamento[0]->email;
 
@@ -165,7 +165,6 @@ class NuevaCompra extends Component
             $datosJefeArea = Colaborador::where('nombres', '=', Auth::user()->nombre)->get();
             $emailJefeArea = $datosJefeArea[0]->email;
         }
-
         // evaluando cantidad de aprobaciones
         if ($this->total > 1000) {
             $aprobaciones=3;
@@ -196,45 +195,65 @@ class NuevaCompra extends Component
                 ]);
             }
 
-            // Enviar correo a los jefes correspondientes para Aprobacion
-            $mail = new PHPMailer();
-            $mail->IsSMTP();
+            /* // Enviar correo a los jefes correspondientes para Aprobacion
+                $mail = new PHPMailer();
+                $mail->IsSMTP();
+                //Configuracion servidor mail
+                $mail->From = "smtp@gmail.com"; //remitente
+                $mail->SMTPAuth = true;
+                $mail->SMTPSecure = 'tls'; //seguridad
+                $mail->Host = "smtp.gmail.com"; // servidor smtp
+                $mail->Port = 587; //puerto
+                $mail->Username = 'jpcdc.service@gmail.com'; //nombre usuario
+                $mail->Password = 'zvqxpjsrrxlolpfm'; //contraseña
+                $mail->setFrom('jpcdc.service@gmail.com', 'Comercial El Valle');
 
-            //Configuracion servidor mail
-            $mail->From = "smtp@gmail.com"; //remitente
-            $mail->SMTPAuth = true;
-            $mail->SMTPSecure = 'tls'; //seguridad
-            $mail->Host = "smtp.gmail.com"; // servidor smtp
-            $mail->Port = 587; //puerto
+                // Obteniendo emails a enviar correos
+                if ($this->total > 1000) {
+                    $mail->addAddress($emailGerente);
+                    $mail->addAddress($emailJefeDepartamento);
+                    $mail->addAddress($emailJefeArea);
+                }else if ($this->total > 100 && $this->total <= 1000) {
+                    $mail->addAddress($emailJefeDepartamento);
+                    $mail->addAddress($emailJefeArea);
+                }else{
+                    $mail->addAddress($emailJefeArea);
+                }
+                $DataSol = '
 
-            $mail->Username = 'jpcdc.service@gmail.com'; //nombre usuario
-            $mail->Password = 'zvqxpjsrrxlolpfm'; //contraseña
+                ';
+                $mail->isHTML(true);
+                $mail->Subject = 'Solicitud de Aprobacion';
+                $mail->Body    = $DataSol;
+                $mail->send();
+            */
 
-            $mail->setFrom('jpcdc.service@gmail.com', 'Comercial El Valle');
+            $datosVenta = array("nroOrden"=>$id,"urgencia"=>$gradoElegido, "fecha"=>date('Y-m-d H:i:s'), "total"=> $this->total, "cantidad"=> $this->cantotal, "detalle"=>$this->table);
 
-            // Obteniendo emails a enviar correos
+
+
             if ($this->total > 1000) {
-                $mail->addAddress($emailGerente);
-                $mail->addAddress($emailJefeDepartamento);
-                $mail->addAddress($emailJefeArea);
+                 $datosRecive = array($emailGerente,$emailJefeDepartamento,$emailJefeArea);
             }else if ($this->total > 100 && $this->total <= 1000) {
-                $mail->addAddress($emailJefeDepartamento);
-                $mail->addAddress($emailJefeArea);
+                $datosRecive = array($emailJefeDepartamento,$emailJefeArea);
             }else{
-                $mail->addAddress($emailJefeArea);
+                $datosRecive = array($emailJefeArea);
             }
 
-            $DataSol = '
-
-            ';
-
-            /* $mailable = new MensajeDeCorreo($datos, date('Y-m-d H:i:s'));
-            Mail::to($emailJefeArea)->send($mailable); */
-
-            $mail->isHTML(true);
-            $mail->Subject = 'Solicitud de Aprobacion';
-            $mail->Body    = $DataSol;
-            $mail->send();
+             // Enviar correo a los jefes correspondientes para Aprobacion
+            if ($this->total > 1000) {
+                foreach ($datosRecive as $email) {
+                    Mail::to($email)->send(new MensajeDeCorreo($datosSolicitante,$datosVenta));
+                }
+            }else if ($this->total > 100 && $this->total <= 1000) {
+                foreach ($datosRecive as $email) {
+                    Mail::to($email)->send(new MensajeDeCorreo($datosSolicitante,$datosVenta));
+                }
+            }else{
+                foreach ($datosRecive as $email) {
+                    Mail::to($email)->send(new MensajeDeCorreo($datosSolicitante,$datosVenta));
+                }
+            }
 
             DB::commit();
 

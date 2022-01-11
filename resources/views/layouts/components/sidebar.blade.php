@@ -8,7 +8,7 @@
             <li class="nav-item me-auto">
                 <a class="navbar-brand" href="/dashboard">
                     <span class="brand-logo">
-                        <img src="{{asset('images/logo2.png')}}" alt="Olano S.A.C logo" style="height: 24px;">
+                        <img src="{{asset('images/logo5.png')}}" alt="Comercial El Valle" >
                     </span>
                     <h2 class="brand-text text-dark">Comercial El Valle</h2>
                 </a>

@@ -16,10 +16,11 @@ class MensajeDeCorreo extends Mailable
      *
      * @return void
      */
-    public function __construct($colaborador, $fecha)
+    public function __construct($datosSolicitante,$datosVenta)
     {
-        $this->colaborador = $colaborador;
-        $this->fecha = $fecha;
+        $this->datosSolicitante = $datosSolicitante;
+        $this->datosVenta = $datosVenta;
+        /* $this->datosRecive = $datosRecive; */
     }
 
     /**
@@ -33,8 +34,9 @@ class MensajeDeCorreo extends Mailable
             ->view('livewire.evaluacion-solicitud.mensaje')
             ->subject("Solicitud de Aprobacion")
             ->with([
-                "colaborador" => $this->colaborador,
-                "fecha" => $this->fecha,
+                "datosSolicitante" => $this->datosSolicitante,
+                "datosVenta" => $this->datosVenta
+                /* "datosRecive" => $this->datosRecive */
             ]);
     }
 }

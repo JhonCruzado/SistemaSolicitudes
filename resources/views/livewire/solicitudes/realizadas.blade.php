@@ -108,7 +108,7 @@
                         </div>
                     </div>
                     <div class="col-lg">
-                        {{-- {{$solicitudes->links()}} --}}
+                        {{$solicitudes->links()}}
                     </div>
                 </div>
             </div>
