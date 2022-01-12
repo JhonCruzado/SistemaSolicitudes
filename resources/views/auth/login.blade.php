@@ -47,12 +47,12 @@
     </x-jet-authentication-card> --}}
     <div class="content-body">
         <div class="auth-wrapper auth-v1 px-2">
-            <div class="auth-inner py-2">
+            <div class="auth-inner py-0">
                 <!-- Login v1 -->
                 <div class="card mb-0">
                     <div class="card-body">
                         <a href="#" class="brand-logo">
-                            <img src="{{asset('images/logo2.png')}}" alt="Olano S.A.C" style="height: 100px">
+                            <img src="{{asset('images/logo5.png')}}" alt="Olano S.A.C" style="height: 150px">
                         </a>
 
                         <h4 class="card-title mb-1">Login</h4>

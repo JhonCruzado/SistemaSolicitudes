@@ -139,6 +139,7 @@ class NuevaCompra extends Component
         if ($this->total > 1000) {
             $datosGerente = Colaborador::where('cargo_id', 'like', 4)->get();
             $emailGerente = $datosGerente[0]->email;
+            $idGerente = $datosGerente[0]->id_colaborador;
 
             $datosJefeDepartamento = DB::table('colaborador_area as ca')
                 ->join('area as ar', 'ar.id_area', '=', 'ca.area_id')
@@ -147,9 +148,11 @@ class NuevaCompra extends Component
                 ->where('ca.colaborador_id', 'like', $datosSolicitante[0]->id)
                 ->get();
             $emailJefeDepartamento = $datosJefeDepartamento[0]->email;
+            $idJefeDepa = $datosJefeDepartamento[0]->id_colaborador;
 
             $datosJefeArea = Colaborador::where('nombres', '=', Auth::user()->nombre)->get();
             $emailJefeArea = $datosJefeArea[0]->email;
+            $idJefeArea = $datosJefeArea[0]->id_colaborador;
         }else if ($this->total > 100 && $this->total <= 1000) {
             $datosJefeDepartamento = DB::table('colaborador_area as ca')
                 ->join('area as ar', 'ar.id_area', '=', 'ca.area_id')
@@ -158,12 +161,15 @@ class NuevaCompra extends Component
                 ->where('ca.colaborador_id', 'like', $datosSolicitante[0]->id)
                 ->get();
             $emailJefeDepartamento = $datosJefeDepartamento[0]->email;
+            $idJefeDepa = $datosJefeDepartamento[0]->id_colaborador;
 
             $datosJefeArea = Colaborador::where('nombres', '=', Auth::user()->nombre)->get();
             $emailJefeArea = $datosJefeArea[0]->email;
+            $idJefeArea = $datosJefeArea[0]->id_colaborador;
         }else{
             $datosJefeArea = Colaborador::where('nombres', '=', Auth::user()->nombre)->get();
             $emailJefeArea = $datosJefeArea[0]->email;
+            $idJefeArea = $datosJefeArea[0]->id_colaborador;
         }
         // evaluando cantidad de aprobaciones
         if ($this->total > 1000) {
@@ -230,8 +236,6 @@ class NuevaCompra extends Component
 
             $datosVenta = array("nroOrden"=>$id,"urgencia"=>$gradoElegido, "fecha"=>date('Y-m-d H:i:s'), "total"=> $this->total, "cantidad"=> $this->cantotal, "detalle"=>$this->table);
 
-
-
             if ($this->total > 1000) {
                  $datosRecive = array($emailGerente,$emailJefeDepartamento,$emailJefeArea);
             }else if ($this->total > 100 && $this->total <= 1000) {
@@ -239,20 +243,61 @@ class NuevaCompra extends Component
             }else{
                 $datosRecive = array($emailJefeArea);
             }
-
              // Enviar correo a los jefes correspondientes para Aprobacion
             if ($this->total > 1000) {
                 foreach ($datosRecive as $email) {
-                    Mail::to($email)->send(new MensajeDeCorreo($datosSolicitante,$datosVenta));
+                    $datosColaborados = DB::table('colaborador')->select('id_colaborador as id')->where('email', 'like', $email)->get();
+                    $datosColaborados = $datosColaborados[0]->id;
+ 
+                    Mail::to($email)->send(new MensajeDeCorreo($datosSolicitante,$datosVenta,$datosColaborados));
+
+                    DB::table('solicitud')->insert([
+                        'solicitud_id' => $id,
+                        'colaborador_id' => $datosColaborados
+                    ]);
                 }
+                /* foreach ($datosColaborados as $d) {
+                    DB::table('solicitud')->insert([
+                        'solicitud_id' => $id,
+                        'colaborador_id' => $d
+                    ]);
+                } */
             }else if ($this->total > 100 && $this->total <= 1000) {
                 foreach ($datosRecive as $email) {
-                    Mail::to($email)->send(new MensajeDeCorreo($datosSolicitante,$datosVenta));
+                    $datosColaborados = DB::table('colaborador')->select('id_colaborador as id')->where('email', 'like', $email)->get();
+                    $datosColaborados = $datosColaborados[0]->id;
+
+                    Mail::to($email)->send(new MensajeDeCorreo($datosSolicitante,$datosVenta,$datosColaborados));
+
+                    DB::table('solicitud')->insert([
+                        'solicitud_id' => $id,
+                        'colaborador_id' => $datosColaborados
+                    ]);
                 }
+               /*  foreach ($datosColaborados as $d) {
+                    DB::table('solicitud')->insert([
+                        'solicitud_id' => $id,
+                        'colaborador_id' => $d
+                    ]);
+                } */
             }else{
                 foreach ($datosRecive as $email) {
-                    Mail::to($email)->send(new MensajeDeCorreo($datosSolicitante,$datosVenta));
+                    $datosColaborados = DB::table('colaborador')->select('id_colaborador as id')->where('email', 'like', $email)->get();
+                    $datosColaborados = $datosColaborados[0]->id;
+
+                    Mail::to($email)->send(new MensajeDeCorreo($datosSolicitante,$datosVenta,$datosColaborados));
+
+                    DB::table('solicitud')->insert([
+                        'solicitud_id' => $id,
+                        'colaborador_id' => $datosColaborados
+                    ]);
                 }
+               /*  foreach ($datosColaborados as $d) {
+                    DB::table('solicitud')->insert([
+                        'solicitud_id' => $id,
+                        'colaborador_id' => $d
+                    ]);
+                } */
             }
 
             DB::commit();

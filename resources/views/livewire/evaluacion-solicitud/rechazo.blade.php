@@ -1,45 +1,64 @@
-<main class="content-body">
-    <div class="d-flex justify-content-between mb-4">
-        {{-- <h2 class="content-header-title float-start mb-0 text-dark">Proforma de Compra</h2> --}}
-    </div>
-    <div class="row">
-        <div class="col-lg"></div>
-        <div class="col-lg-6">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-center mb-2">
-                                <h2 class="m-0">
-                                    <b><i data-feather='check'></i>&nbsp;&nbsp;Rechazar la solicitud de compra</b>
-                                </h2>
-                            </div>
-                            <div class="d-flex justify-content-center mb-2">
-                                <h5 class="m-0 text-center">
-                                    Usted está por aprobar la solicitud N° 2345, con monto de S/ 1500, si tiene alguna observación ingrésela a continuación:
-                                </h5>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg mb-1 text-center" >
-                                    <div class="form-group mb-1 input"><br>
-                                        <label class="form-label">Observación</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" >
-                                        </div>
-                                    </div><br>
-                                    <div class="form-group d-flex justify-content-center mb-1 input">
-                                            <button onclick="window.location.href='http://127.0.0.1:8000/solicitudes' "class="btn {{-- btn-danger --}}" id="button-addon2"
-                                                type="button" style="background: #ff0040;color: #fff">
-                                                {{-- <i class="far fa-user-plus"></i> --}}Rechazar solicitud
-                                            </button>
-                                    </div>
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <title>Comercial El Valle</title>
+    <link rel="apple-touch-icon" href="{{ asset('rs/images/ico/apple-icon-120.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo5.png') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
+</head>
+
+<body>
+    <form action="{{ route('save') }}" method="POST" >
+        @csrf
+        <input class="form-control" type="hidden" name="orden"  value="{{ $solicitudes[0]->id_solicitud}}">
+        <input class="form-control" type="hidden" name="colaborador"  value="{{$colaborador}}">
+        <input class="form-control" type="hidden" name="estado"  value="0">
+
+        <table cellpadding="0" cellspacing="0" border="1"
+            style="border-collapse:collapse;padding:0;max-width:700px;width:100%;border:0;background-color: #E8EDEF;margin:0 auto;margin-top:5%;word-break:break-word;font-family: 'Google Sans','Roboto',Arial,sans-serif;">
+            <tbody>
+            <tr>
+                <td>
+                <table style="font-size: 14px; border-spacing: inherit;">
+                    <tbody>
+                    <tr>
+                        <td style="color: #ff0040;text-align: center;font-size: 20px; padding: 2rem">
+                        <h3 style="margin: 0;"><b>Aprobar la Solicitud de Orden de Compra</b></h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;padding: 0 1rem 1rem 1rem;font-size:16px">
+                            Usted está por rechazar la orden de compra <b>N° {{ $solicitudes[0]->id_solicitud}}</b>, con monto de <b>S/. {{ $solicitudes[0]->monto_total}}</b>, si tiene alguna observación ingrésela a continuación:
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: .3rem 1rem;text-align: center;">
+                            <div class="form-group mb-1 input">
+                                <label class="form-label">Observación(opcional)</label>
+                                <div class="input-group">
+                                    <input type="text" name="observacion" class="form-control" >
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg"></div>
-    </div>
-</main>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; padding: 1rem 0; border: none; font-size: 14px;">
+                            <button type="submit" style="text-decoration: none; background: #ff0040; padding: .7rem 1.2rem; color: #fff; border-radius: 20px;margin-right:10px" class="btn btn-primary">Rechazar
+                            solicitud</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</body>
+
+</html>

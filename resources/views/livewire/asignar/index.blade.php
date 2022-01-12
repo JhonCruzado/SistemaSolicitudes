@@ -75,8 +75,8 @@
                     <tbody>
                         @foreach ($colDep as $c)
                             <tr>
-                                <td>{{ $c->colaboradores->nombres }}</td>
-                                <td>{{ $c->departamentos->departamento }}</td>
+                                <td>{{ $c->nombres }}</td>
+                                <td>{{ $c->departamento }}</td>
                                 <td>{{ $c->estado }}</td>
                                 <td class="text-center">
                                     {{-- <button type="button"
@@ -108,7 +108,7 @@
                         </div>
                     </div>
                     <div class="col-lg">
-                        {{ $colDep->links() }}
+                        {{-- {{ $colDep->links() }} --}}
                     </div>
                 </div>
             </div>

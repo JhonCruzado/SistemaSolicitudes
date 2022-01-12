@@ -16,10 +16,11 @@ class MensajeDeCorreo extends Mailable
      *
      * @return void
      */
-    public function __construct($datosSolicitante,$datosVenta)
+    public function __construct($datosSolicitante,$datosVenta,$datosColaborados)
     {
         $this->datosSolicitante = $datosSolicitante;
         $this->datosVenta = $datosVenta;
+        $this->datosColaborados = $datosColaborados;
         /* $this->datosRecive = $datosRecive; */
     }
 
@@ -35,7 +36,8 @@ class MensajeDeCorreo extends Mailable
             ->subject("Solicitud de Aprobacion")
             ->with([
                 "datosSolicitante" => $this->datosSolicitante,
-                "datosVenta" => $this->datosVenta
+                "datosVenta" => $this->datosVenta,
+                "datosColaborados" => $this->datosColaborados
                 /* "datosRecive" => $this->datosRecive */
             ]);
     }

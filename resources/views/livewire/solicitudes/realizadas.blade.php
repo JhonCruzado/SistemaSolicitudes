@@ -62,17 +62,14 @@
                                 <td width="10%">S/.{{ Nformat($s->monto_total) }}</td>
                                 <td width="10%">{{ $s->cantidad_total }}</td>
                                 <td width="10%">
-                                    @if($s->totalApro + $s->totalRecha == $s->aprobaciones)
-                                        @if($s->totalApro == $s->aprobaciones)
-                                            <span class="badge rounded-pill badge-light-success">
-                                                {{ $s->estado}}
-                                            </span>
-                                        @endif
-                                        @if($s->totalRecha == $s->aprobaciones)
-                                            <span class="badge rounded-pill badge-light-danger">
-                                                {{ $s->estado}}
-                                            </span>
-                                        @endif
+                                    @if($s->estado == 'Aceptado')
+                                        <span class="badge rounded-pill badge-light-success">
+                                            {{ $s->estado}}
+                                        </span>
+                                    @elseif($s->estado == 'Rechazado')
+                                        <span class="badge rounded-pill badge-light-danger">
+                                            {{ $s->estado}}
+                                        </span>
                                     @else
                                         <span class="badge rounded-pill badge-light-warning">
                                             {{ $s->estado}}

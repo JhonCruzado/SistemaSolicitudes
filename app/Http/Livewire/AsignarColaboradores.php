@@ -54,13 +54,14 @@ class AsignarColaboradores extends Component
                         ->whereRaw('colaborador_dep.colaborador_id = colaborador.id_colaborador');
             })->get();
 
-        $colDep = AsignarColaborador::orderBy('id_col_dep','DESC')
-            ->where('colaborador_id', 'like', '%' . $this->cargo . '%')
-            ->where('departamento_id', 'like', '%' . $this->search . '%')
-            ->paginate($this->paginate);
+        $colDep = DB::table('colaborador_dep as cd')->orderBy('cd.id_col_dep','DESC')
+            ->select('cd.id_col_dep as id_col_dep','c.nombres as nombres','d.departamento as departamento','cd.estado as estado')
+            ->join('colaborador as c', 'c.id_colaborador', '=', 'cd.colaborador_id')
+            ->join('departamento as d', 'd.id_departamento', '=', 'cd.departamento_id')
+            ->where('c.nombres', 'like', '%' . $this->search . '%')
+            ->get();
         $this->nItems = $colDep->count();
         $cantAsignada = AsignarColaborador::all()->count();
-
         return view('livewire.asignar.index',compact('departamento','colDep','colaboradores','cantAsignada'));
     }
 

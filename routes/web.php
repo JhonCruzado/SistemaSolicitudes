@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AprobandoSolicitudes;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ReportesGraficos;
 use App\Http\Livewire\AdmProductos;
@@ -19,7 +20,6 @@ use App\Http\Livewire\AsignarColaboradores;
 use App\Http\Livewire\AsignarColaboradores2;
 use App\Http\Livewire\ReporteMovimientos;
 use App\Http\Livewire\RechazandoSolicitudes;
-use App\Http\Livewire\AprobandoSolicitudes;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -51,8 +51,13 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/asignar', AsignarColabora
 Route::middleware(['auth:sanctum', 'verified'])->get('/asignar2', AsignarColaboradores2::class)->name('asignar2');
 Route::middleware(['auth:sanctum', 'verified'])->get('/solicitud-compra/{id}', [ComprasRealizadas::class, 'pdf']);
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/aprobacion', AprobandoSolicitudes::class)->name('aprobacion');
-Route::middleware(['auth:sanctum', 'verified'])->get('/rechazo', RechazandoSolicitudes::class)->name('rechazo');
+Route::middleware(['auth:sanctum', 'verified'])->get('/aprobacion/{orden}/{id}', [AprobandoSolicitudes::class, 'aprobar']);
+Route::middleware(['auth:sanctum', 'verified'])->get('/rechazo/{orden}/{id}', [AprobandoSolicitudes::class, 'rechazo']);
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/save', [AprobandoSolicitudes::class, 'save'])->name('save');
+
+/* Route::middleware(['auth:sanctum', 'verified'])->get('/aprobacion/{orden}', AprobandoSolicitudes::class)->name('aprobacion'); */
+/* Route::middleware(['auth:sanctum', 'verified'])->get('/rechazo/{orden}', RechazandoSolicitudes::class)->name('rechazo'); */
 /*
 Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/adm-productos', AdmProductos::class)->name('adm-productos');
 Route::middleware(['auth:sanctum', 'verified', 'auth2:A'])->get('/proveedores', Proveedores::class)->name('proveedores');

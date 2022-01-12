@@ -74,7 +74,7 @@
                 <tr>
                     <td width="65%" class="header-right">
                         <span style="font-weight: bold; margin-bottom: 3px; font-size: 15px;">Comercial El Valle</span>
-                        <span>Filial Guadalupe</span>
+                        <span>Guadalupe</span>
                         <span>Tel: 22558800</span>
                     </td>
                     <td class="header-left">
@@ -102,6 +102,10 @@
                         <div style="margin-bottom: 4px;">
                             <span style="font-weight: bold;">Cargo:</span>
                             <span>{{$datos[0]->cargo}}</span>
+                        </div>
+                        <div style="margin-bottom: 4px;">
+                            <span style="font-weight: bold;">Nivel de Urgencia:</span>
+                            <span>{{$solicitudes[0]->grado_urgencia}}</span>
                         </div>
                         <div style="margin-bottom: 4px;">
                             <span style="font-weight: bold;">DNI:</span>

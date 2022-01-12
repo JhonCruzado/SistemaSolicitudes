@@ -71,15 +71,15 @@
               </tr><br>
               <tr>
                 <td style="text-align: center; padding: 1rem 0; border: none; font-size: 14px;">
-                    <a href="http://127.0.0.1:8000/aprobacion" target="_blank"
+                    <a href="http://127.0.0.1:8000/aprobacion/{{ $datosVenta['nroOrden'] }}/{{ $datosColaborados }}" target="_blank"
                     style="text-decoration: none; background: #0d6efd; padding: .7rem 1.2rem; color: #fff; border-radius: 20px;margin-right:10px">Aprobar
                     solicitud</a>
-                  <a href="http://127.0.0.1:8000/rechaz" target="_blank"
+                  <a href="http://127.0.0.1:8000/rechazo/{{ $datosVenta['nroOrden'] }}/{{ $datosColaborados }}" target="_blank"
                     style="text-decoration: none; background: #ff0040; padding: .7rem 1.2rem; color: #fff; border-radius: 20px">Rechazar
                     solicitud</a>
                 </td>
               </tr>
-            </tbody>
+            </tbody><br>
             <tfoot>
               <tr bgcolor="#000" height="80px">
                 <td style="text-align:center">
