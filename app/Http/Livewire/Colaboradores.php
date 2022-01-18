@@ -136,7 +136,7 @@ class Colaboradores extends Component
 
                     $DataSol = '<p>Para acceder al sistema utilize las siguientes credenciales:
                     <br>
-                    Link: http://127.0.0.1:8000/login
+                    Link: http://sistemasolicitudes.zjtbjksr.lucusvirtual.es/login
                     <br>
                     Email: '.$datosUsuario['email'] .'
                     <br>
