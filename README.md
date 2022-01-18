@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-<a href="http://sistemasolicitudes.zjtbjksr.lucusvirtual.es/login">Link del Proyecto</a>
+<a href="http://sistemasolicitudes.zjtbjksr.lucusvirtual.es/login" target="_blank">Link del Proyecto</a>
 </p>
 
 ## About Laravel
