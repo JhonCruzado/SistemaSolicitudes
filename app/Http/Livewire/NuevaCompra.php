@@ -287,7 +287,6 @@ class NuevaCompra extends Component
             return $this->dispatchBrowserEvent('alertSuccess', ['title' => "Nueva solicitud", 'text' => "Solicitud registrada!"]);
         } catch (\Exception $e) {
             DB::rollBack();
-            dd(throw $e);
             return $this->dispatchBrowserEvent('alertWarning', ['title' => "Nueva solicitud", 'text' => "Ocurrio un error!"]);
         }
     }

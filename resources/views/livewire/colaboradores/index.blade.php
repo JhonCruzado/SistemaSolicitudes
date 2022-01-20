@@ -59,21 +59,21 @@
                                 <td>{{ $c->cargos->cargo }}</td>
                                 <td>{{ $c->direccion }}</td>
                                 <td>{{ $c->email }}</td>
-                                @if($c->cargos->cargo == "Gerente General")
+                                {{-- @if($c->cargos->cargo == "Gerente General") --}}
                                       <td class="text-center">
                                         <button type="button"
                                             class="btn btn-icon btn-icon rounded-circle btn-flat-success title-edit"
-                                            wire:click="edit({{ $c->id_colaborador }})" wire:loading.attr="disabled" disabled>
+                                            wire:click="edit({{ $c->id_colaborador }})" wire:loading.attr="disabled" >
                                             <i class="far fa-pen"></i>
                                         </button>
                                         <button type="button"
                                             class="btn btn-icon btn-icon rounded-circle btn-flat-danger title-delete"
                                             wire:click="$emit('confirmDelete',{{ $c->id_colaborador }})"
-                                            wire:loading.attr="disabled" disabled>
+                                            wire:loading.attr="disabled">
                                             <i class="far fa-trash-alt"></i>
                                         </button>
                                     </td>
-                                  @else
+                                  {{-- @else
                                       <td class="text-center">
                                         <button type="button"
                                             class="btn btn-icon btn-icon rounded-circle btn-flat-success title-edit"
@@ -87,7 +87,7 @@
                                             <i class="far fa-trash-alt"></i>
                                         </button>
                                     </td>
-                                  @endif
+                                  @endif --}}
                             </tr>
                         @endforeach
                     </tbody>
