@@ -77,7 +77,17 @@
                             <tr>
                                 <td>{{ $c->nombres }}</td>
                                 <td>{{ $c->departamento }}</td>
-                                <td>{{ $c->estado }}</td>
+                                <td>
+                                    @if($c->estado == "Habilitado")
+                                        <span class="badge rounded-pill badge-light-success">
+                                            {{ $c->estado }}
+                                        </span>
+                                    @else
+                                        <span class="badge rounded-pill badge-light-danger">
+                                            {{ $c->estado }}
+                                        </span>
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                     {{-- <button type="button"
                                         class="btn btn-icon btn-icon rounded-circle btn-flat-success title-edit"

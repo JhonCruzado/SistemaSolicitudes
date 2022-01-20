@@ -18,11 +18,12 @@ class ComprasRealizadas extends Component
     public $idSolicitud;
 
     public $_detalle = false;
+    public $_procesar = false;
 
     public function render()
     {
         $solicitudes = DB::table('solicitud_compra as sc')
-            ->select('sc.id_solicitud as id_solicitud','sc.fecha as fecha','c.nombres as nombre','sc.grado_urgencia as grado_urgencia','sc.monto_total as monto_total','sc.cantidad_total as cantidad_total','sc.Aprobaciones as aprobaciones','sc.TotalAprobaciones as totalApro','sc.TotalRechazos as totalRecha','sc.estado')
+            ->select('sc.id_solicitud as id_solicitud','sc.fecha as fecha','c.nombres as nombre','sc.grado_urgencia as grado_urgencia','sc.monto_total as monto_total','sc.cantidad_total as cantidad_total','sc.estado')
             ->join('colaborador as c', 'c.id_colaborador', '=', 'sc.colaborador_id')
             ->orderBy('sc.id_solicitud','DESC')
             ->where('c.nombres', '=', Auth::user()->nombre)
@@ -46,6 +47,18 @@ class ComprasRealizadas extends Component
         $this->_detalle = true;
     }
 
+    public function procesar($id)
+    {
+        $this->idSolicitud = $id;
+        $this->_procesar = true;
+    }
+
+    public function procesarsolicitud($opc)
+    {
+        $this->dispatchBrowserEvent('alertSuccess', ['title' => "Solicitud procesada", 'text' => "Se ha procesado correctamente!"]);
+        $this->limpiarCampos();
+    }
+
     public function pdf($id)
     {
         $solicitudes = SolicitudCompra::join('detalle_solicitud_compraa as d', 'solicitud_compra.id_solicitud', '=', 'd.solicitud_id')
@@ -62,5 +75,10 @@ class ComprasRealizadas extends Component
         //return view('livewire.ventas.pdf', compact('ventas'));
         $pdf = PDF::loadView('livewire.solicitudes.pdf', compact('solicitudes','datos'));
         return $pdf->stream('proforma-compra.pdf');
+    }
+
+    public function limpiarCampos()
+    {
+        $this->_procesar = false;
     }
 }

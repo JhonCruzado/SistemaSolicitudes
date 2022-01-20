@@ -48,7 +48,7 @@
                     </tr>
                     <tr>
                         <td style="text-align: center; padding: 1rem 0; border: none; font-size: 14px;">
-                            <button type="submit" style="text-decoration: none; background: #ff0040; padding: .7rem 1.2rem; color: #fff; border-radius: 20px;margin-right:10px" class="btn btn-primary">Rechazar
+                            <button type="submit" style="text-decoration: none; background: #ff0040; padding: .7rem 1.2rem; color: #fff; border-radius: 20px;margin-right:10px" class="btn btn-danger">Rechazar
                             solicitud</button>
                         </td>
                     </tr>

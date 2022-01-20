@@ -37,6 +37,7 @@
                             <th>Cantidad</th>
                             <th>Estado</th>
                             <th class="text-center">Acciones</th>
+                            {{-- <th class="text-center"></th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -62,7 +63,7 @@
                                 <td width="10%">S/.{{ Nformat($s->monto_total) }}</td>
                                 <td width="10%">{{ $s->cantidad_total }}</td>
                                 <td width="10%">
-                                    @if($s->estado == 'Aceptado')
+                                    @if($s->estado == 'Aprobado')
                                         <span class="badge rounded-pill badge-light-success">
                                             {{ $s->estado}}
                                         </span>
@@ -88,6 +89,20 @@
                                         <i class="fas fa-file-pdf"></i>
                                     </a>
                                 </td>
+                                {{-- <td class="text-center">
+                                    @if($s->estado == 'Aprobado')
+                                        <button type="button"
+                                            class="btn btn-icon btn-icon btn-flat-info title"
+                                            wire:click="procesar({{ $s->id_solicitud }})" wire:loading.attr="disabled">Procesar Solicitud
+                                        </button>
+                                    @else
+                                        <button type="button"
+                                            class="btn btn-icon btn-icon btn-flat-info title"
+                                            wire:click="procesar({{ $s->id_solicitud }})" wire:loading.attr="disabled" disabled>Procesar Solicitud
+                                        </button>
+                                    @endif
+
+                                </td> --}}
                             </tr>
                         @endforeach
                     </tbody>
@@ -113,5 +128,8 @@
     </div>
     @if ($_detalle)
         @include('livewire.solicitudes.ver-detalle')
+    @endif
+    @if ($_procesar)
+        @include('livewire.solicitudes.procesar')
     @endif
 </main>

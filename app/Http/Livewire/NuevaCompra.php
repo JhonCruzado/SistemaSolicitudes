@@ -233,7 +233,6 @@ class NuevaCompra extends Component
                 $mail->Body    = $DataSol;
                 $mail->send();
             */
-
             $datosVenta = array("nroOrden"=>$id,"urgencia"=>$gradoElegido, "fecha"=>date('Y-m-d H:i:s'), "total"=> $this->total, "cantidad"=> $this->cantotal, "detalle"=>$this->table);
 
             if ($this->total > 1000) {
@@ -248,7 +247,7 @@ class NuevaCompra extends Component
                 foreach ($datosRecive as $email) {
                     $datosColaborados = DB::table('colaborador')->select('id_colaborador as id')->where('email', 'like', $email)->get();
                     $datosColaborados = $datosColaborados[0]->id;
- 
+
                     Mail::to($email)->send(new MensajeDeCorreo($datosSolicitante,$datosVenta,$datosColaborados));
 
                     DB::table('solicitud')->insert([
@@ -256,12 +255,6 @@ class NuevaCompra extends Component
                         'colaborador_id' => $datosColaborados
                     ]);
                 }
-                /* foreach ($datosColaborados as $d) {
-                    DB::table('solicitud')->insert([
-                        'solicitud_id' => $id,
-                        'colaborador_id' => $d
-                    ]);
-                } */
             }else if ($this->total > 100 && $this->total <= 1000) {
                 foreach ($datosRecive as $email) {
                     $datosColaborados = DB::table('colaborador')->select('id_colaborador as id')->where('email', 'like', $email)->get();
@@ -274,12 +267,6 @@ class NuevaCompra extends Component
                         'colaborador_id' => $datosColaborados
                     ]);
                 }
-               /*  foreach ($datosColaborados as $d) {
-                    DB::table('solicitud')->insert([
-                        'solicitud_id' => $id,
-                        'colaborador_id' => $d
-                    ]);
-                } */
             }else{
                 foreach ($datosRecive as $email) {
                     $datosColaborados = DB::table('colaborador')->select('id_colaborador as id')->where('email', 'like', $email)->get();
@@ -292,12 +279,6 @@ class NuevaCompra extends Component
                         'colaborador_id' => $datosColaborados
                     ]);
                 }
-               /*  foreach ($datosColaborados as $d) {
-                    DB::table('solicitud')->insert([
-                        'solicitud_id' => $id,
-                        'colaborador_id' => $d
-                    ]);
-                } */
             }
 
             DB::commit();

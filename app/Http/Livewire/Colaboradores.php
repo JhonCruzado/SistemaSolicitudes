@@ -128,19 +128,19 @@ class Colaboradores extends Component
                     $mail->Host = "smtp.gmail.com"; // servidor smtp
                     $mail->Port = 587; //puerto
 
-                    $mail->Username = 'jpcdc.service@gmail.com'; //nombre usuario
-                    $mail->Password = 'zvqxpjsrrxlolpfm'; //contraseña
+                    $mail->Username = 'comercialelvalle2022@gmail.com'; //nombre usuario
+                    $mail->Password = 'xantpyvayyqqiycf'; //contraseña
 
-                    $mail->setFrom('jpcdc.service@gmail.com', 'Comercial El Valle');
+                    $mail->setFrom('comercialelvalle2022@gmail.com', 'Comercial El Valle');
                     $mail->addAddress($datosUsuario['email']);
 
                     $DataSol = '<p>Para acceder al sistema utilize las siguientes credenciales:
                     <br>
-                    Link: http://sistemasolicitudes.zjtbjksr.lucusvirtual.es/login
+                    <b>Link:</b> http://127.0.0.1:8000/login
                     <br>
-                    Email: '.$datosUsuario['email'] .'
+                    <b>Email:</b> '.$datosUsuario['email'] .'
                     <br>
-                    Contraseña: password
+                    <b>Contraseña:</b> password
                     </p>';
 
                     $mail->isHTML(true);

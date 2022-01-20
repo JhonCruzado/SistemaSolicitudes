@@ -22,16 +22,19 @@
             <tbody>
               <tr>
                 <td style="color: #0d6efd;text-align: center;font-size: 18px; padding: 1rem">
-                  <h5 style="margin: 0;">** Solicitud de Aprobación - Orden de Compra **</h5>
+                  <h5 style="margin: 0;">** Procesamiento y Adquisición de Orden de Compra **</h5>
                 </td>
               </tr>
               <tr>
                 <td style="text-align: justify;padding: 0 1rem 1rem 1rem;">
-                  Estimado, requerimos su respuesta frente a está solicitud. A continuación se detalla la orden de compra:
+                  Estimado la siguiente orden de compra tiene las aprobaciones necesarias para que procedan con su procesamiento y adquisición de los productos detallados.
                 </td>
               </tr>
               <tr>
                 <td style="padding: .3rem 1rem;"><b>Nro. Orden Compra: </b>{{$datosVenta['nroOrden']}}</td>
+              </tr>
+              <tr>
+                <td style="padding: .3rem 1rem;"><b>Estado Orden Compra: </b>{{$datosVenta['estado']}}</td>
               </tr>
               <tr>
                 <td style="padding: .3rem 1rem;"><b>Solicitante: </b> {{$datosSolicitante[0]->nombres .' - '. $datosSolicitante[0]->cargo}}</td>
@@ -64,20 +67,6 @@
                     @endforeach
                   </tbody>
                 </table>
-              </tr><br>
-              <tr>
-                <td style="padding: 0 1rem; text-align: center; font-size: 14px;">Para poder aceptar o rechazar está solicitud presione uno de los siguientes
-                  botones:</td>
-              </tr><br>
-              <tr>
-                <td style="text-align: center; padding: 1rem 0; border: none; font-size: 14px;">
-                    <a href="http://127.0.0.1:8000/aprobacion/{{ $datosVenta['nroOrden'] }}/{{ $datosColaborados }}" target="_blank"
-                    style="text-decoration: none; background: #0d6efd; padding: .7rem 1.2rem; color: #fff; border-radius: 20px;margin-right:10px">Aprobar
-                    solicitud</a>
-                  <a href="http://127.0.0.1:8000/rechazo/{{ $datosVenta['nroOrden'] }}/{{ $datosColaborados }}" target="_blank"
-                    style="text-decoration: none; background: #ff0040; padding: .7rem 1.2rem; color: #fff; border-radius: 20px">Rechazar
-                    solicitud</a>
-                </td>
               </tr>
             </tbody><br>
             <tfoot>

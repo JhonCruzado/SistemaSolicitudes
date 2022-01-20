@@ -57,11 +57,10 @@
         .values tbody tr td {
             padding: 2px;
         }
-
     </style>
 </head>
 
-<body>
+<body >
     @php
         function Nformat($money)
         {
@@ -79,7 +78,13 @@
                     </td>
                     <td class="header-left">
                         <span style="font-weight: bold; margin-bottom: 3px;">ORDEN DE COMPRA</span>
-                        <span style="font-weight: bold; margin-bottom: 3px; color:#ca3939">{{$solicitudes[0]->id_solicitud}}</span>
+                        @if($solicitudes[0]->estado == 'Aprobado')
+                               <span style="font-weight: bold; margin-bottom: 3px; color:#2BC871">{{$solicitudes[0]->id_solicitud}}</span>
+                            @elseif($solicitudes[0]->estado == 'Rechazado')
+                                <span style="font-weight: bold; margin-bottom: 3px; color:#ca3939">{{$solicitudes[0]->id_solicitud}}</span>
+                            @else
+                                <span style="font-weight: bold; margin-bottom: 3px; color:#FFA045">{{$solicitudes[0]->id_solicitud}}</span>
+                            @endif
                         <span>RUC: 1087654321</span>
                     </td>
                 </tr>
@@ -94,6 +99,16 @@
                         <div style="margin-bottom: 4px;">
                             <span style="font-weight: bold;">Fecha de registro:</span>
                             <span>{{ date('d/m/Y H:i A',strtotime($solicitudes[0]->fecha)) }}</span>
+                        </div>
+                        <div style="margin-bottom: 4px;">
+                            <span style="font-weight: bold;">Estado de Solicitud:</span>
+                            @if($solicitudes[0]->estado == 'Aprobado')
+                               <span style="font-weight: bold; margin-bottom: 3px; color:#2BC871">{{$solicitudes[0]->estado}}</span>
+                            @elseif($solicitudes[0]->estado == 'Rechazado')
+                                <span style="font-weight: bold; margin-bottom: 3px; color:#ca3939">{{$solicitudes[0]->estado}}</span>
+                            @else
+                                <span style="font-weight: bold; margin-bottom: 3px; color:#FFA045">{{$solicitudes[0]->estado}}</span>
+                            @endif
                         </div>
                         <div style="margin-bottom: 4px;">
                             <span style="font-weight: bold;">Solicitante:</span>
